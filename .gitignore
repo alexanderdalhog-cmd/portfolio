@@ -1,0 +1,34 @@
+# Local Netlify folder
+.netlify
+
+# Local Claude/IDE state
+.claude
+
+# Heavy assets folder (source files, demo video) — not needed for live site
+New folder/
+
+# Separate Python project, not part of portfolio
+job-hunter/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+
+# Job application reports (personal/private)
+JOB_APPLICATIONS_REPORT.md
+
+# Archive PDFs not used by the live site (keep Resume.pdf for download)
+Alexander F. Dalhog Jr. Resume & Portfolio.pdf
+Dalhog, Alexander Jr. - Behavioral Report.pdf
+Portfolio and Resume.pdf
+Two character references.pdf
+
+# Old/legacy versions
+Alexander-Dalhog-Resume-Portfolio.html
+Alexander Dalhog Jr (2).jpg

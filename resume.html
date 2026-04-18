@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alexander F. Dalhog Jr. — Resume & Portfolio</title>
+    <meta name="description" content="Resume of Alexander F. Dalhog Jr. — Development & Experience Manager, AI Automation Builder, People Operations Leader.">
+    <meta name="theme-color" content="#1a365d">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231a365d'/%3E%3Ctext x='50%25' y='50%25' dy='.35em' text-anchor='middle' font-family='Inter,sans-serif' font-weight='800' font-size='28' fill='white'%3EAD%3C/text%3E%3C/svg%3E">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a365d;
+            --accent: #2b6cb0;
+            --accent-light: #ebf4ff;
+            --accent-soft: #dbeafe;
+            --accent-glow: rgba(43,108,176,0.25);
+            --aurora-2: #9f7aea;
+            --text: #1a202c;
+            --text-secondary: #4a5568;
+            --text-light: #718096;
+            --bg: #ffffff;
+            --page-bg: #e2e8f0;
+            --border: #e2e8f0;
+            --border-light: #edf2f7;
+            --green: #276749;
+            --green-bg: #f0fff4;
+            --green-border: #c6f6d5;
+        }
+        [data-theme="dark"] {
+            --primary: #60a5fa;
+            --accent: #93c5fd;
+            --accent-light: rgba(96,165,250,0.12);
+            --accent-soft: rgba(96,165,250,0.08);
+            --accent-glow: rgba(96,165,250,0.4);
+            --text: #e6edf3;
+            --text-secondary: #b9c5d3;
+            --text-light: #8b97a8;
+            --bg: #131a2b;
+            --page-bg: #0a0e1a;
+            --border: #1e293b;
+            --border-light: #1a2236;
+            --green: #4ade80;
+            --green-bg: rgba(74,222,128,0.1);
+            --green-border: rgba(74,222,128,0.3);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--text);
+            background: var(--page-bg);
+            line-height: 1.55;
+            font-size: 13.5px;
+            transition: background 0.4s ease, color 0.3s ease;
+        }
+        ::selection { background: var(--accent); color: white; }
+
+        /* PAGE CONTAINER */
+        .page {
+            max-width: 820px;
+            min-height: 11in;
+            margin: 24px auto;
+            background: var(--bg);
+            padding: 36px 44px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: pageRise 0.8s cubic-bezier(.5,1.4,.4,1) forwards;
+        }
+        .page:nth-child(3) { animation-delay: 0.15s; }
+        @keyframes pageRise {
+            to { opacity: 1; transform: translateY(0); }
+        }
+        [data-theme="dark"] .page { box-shadow: 0 8px 32px rgba(0,0,0,0.5), 0 0 0 1px var(--border); }
+
+        /* HEADER PHOTO */
+        .header-with-photo {
+            display: flex; align-items: center; gap: 22px;
+            text-align: left; margin-bottom: 18px;
+            padding-bottom: 14px; border-bottom: 2.5px solid var(--primary);
+        }
+        .resume-photo {
+            width: 88px; height: 88px; border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), var(--aurora-2));
+            display: flex; align-items: center; justify-content: center;
+            color: white; font-size: 1.6rem; font-weight: 800;
+            flex-shrink: 0; overflow: hidden;
+            border: 3px solid var(--bg);
+            box-shadow: 0 4px 14px var(--accent-glow);
+        }
+        .resume-photo img { width: 100%; height: 100%; object-fit: cover; }
+        .header-info { flex: 1; }
+
+        /* ====================== */
+        /* PAGE 1: RESUME         */
+        /* ====================== */
+
+        /* Portfolio Banner */
+        .portfolio-banner {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 14px var(--accent-glow);
+        }
+        .portfolio-banner::before {
+            content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+            animation: shimmer 5s ease-in-out infinite;
+        }
+        @keyframes shimmer { to { left: 200%; } }
+        .portfolio-banner .banner-text {
+            font-size: 0.82rem;
+            font-weight: 600;
+            position: relative; z-index: 1;
+        }
+        .portfolio-banner .banner-url {
+            font-size: 0.78rem;
+            color: rgba(255,255,255,0.95);
+            text-decoration: none;
+            background: rgba(255,255,255,0.18);
+            padding: 5px 14px;
+            border-radius: 4px;
+            font-weight: 600;
+            transition: background 0.2s, transform 0.2s;
+            position: relative; z-index: 1;
+        }
+        .portfolio-banner .banner-url:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-1px);
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 18px;
+            padding-bottom: 14px;
+            border-bottom: 2.5px solid var(--primary);
+        }
+        .header h1 {
+            font-size: 1.85rem;
+            font-weight: 800;
+            color: var(--primary);
+            letter-spacing: -0.5px;
+            margin-bottom: 3px;
+        }
+        .header .tagline {
+            font-size: 0.88rem;
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 9px;
+        }
+        .contact-row {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 6px 16px;
+            font-size: 0.78rem;
+            color: var(--text-secondary);
+        }
+        .contact-row a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+        .contact-row a:hover { text-decoration: underline; }
+        .contact-row .separator { color: var(--border); }
+
+        /* Section Titles */
+        .section { margin-bottom: 16px; }
+        .section-title {
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--primary);
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 3px;
+            margin-bottom: 10px;
+        }
+
+        /* Summary */
+        .summary p {
+            color: var(--text-secondary);
+            font-size: 0.84rem;
+            line-height: 1.6;
+        }
+
+        /* Experience */
+        .job { margin-bottom: 14px; }
+        .job:last-child { margin-bottom: 0; }
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 4px;
+            margin-bottom: 1px;
+        }
+        .job-title {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        .job-date {
+            font-size: 0.76rem;
+            color: var(--text-light);
+            font-weight: 500;
+            white-space: nowrap;
+        }
+        .job-company {
+            font-size: 0.84rem;
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        .job ul { padding-left: 16px; }
+        .job li {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-bottom: 2px;
+            line-height: 1.5;
+        }
+        .job li strong { color: var(--text); font-weight: 600; }
+
+        /* Skills (compact) */
+        .skills-compact {
+            display: grid;
+            grid-template-columns: 110px 1fr;
+            gap: 5px 12px;
+        }
+        .skills-label {
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+        .skills-value {
+            font-size: 0.78rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* Education compact */
+        .edu-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+        }
+        .edu-name {
+            font-size: 0.84rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+        .edu-detail {
+            font-size: 0.78rem;
+            color: var(--text-light);
+        }
+
+        /* ====================== */
+        /* PAGE 2: PROJECTS       */
+        /* ====================== */
+
+        .page-break {
+            page-break-before: always;
+            break-before: page;
+        }
+
+        /* Page 2 Header */
+        .p2-header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding-bottom: 14px;
+            border-bottom: 2.5px solid var(--primary);
+        }
+        .p2-header h1 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 2px;
+        }
+        .p2-header .p2-sub {
+            font-size: 0.84rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+        .p2-header .p2-sub a {
+            color: var(--accent);
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        /* Project Cards */
+        .project-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 11px;
+        }
+        .p-card {
+            border: 1px solid var(--border-light);
+            border-radius: 6px;
+            padding: 12px 16px;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 4px 20px;
+            align-items: start;
+            transition: border-color 0.2s;
+            page-break-inside: avoid;
+        }
+        .p-card {
+            transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+        }
+        .p-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+        }
+        [data-theme="dark"] .p-card:hover { box-shadow: 0 6px 18px rgba(0,0,0,0.4); }
+        .p-card.featured {
+            border-left: 3px solid var(--accent);
+            background: linear-gradient(135deg, var(--accent-light) 0%, var(--bg) 50%);
+        }
+        .p-card-content { grid-column: 1; }
+        .p-card-links { grid-column: 2; grid-row: 1 / 3; align-self: center; }
+        .p-card-name {
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1px;
+        }
+        .p-card-sub {
+            font-size: 0.74rem;
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        .p-card-desc {
+            font-size: 0.78rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+        .p-card-tech {
+            font-size: 0.72rem;
+            color: var(--text-light);
+            margin-top: 4px;
+        }
+        .p-card-impact {
+            display: inline-block;
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: var(--green);
+            background: var(--green-bg);
+            border: 1px solid var(--green-border);
+            padding: 2px 8px;
+            border-radius: 3px;
+            margin-top: 4px;
+        }
+
+        /* Link pills */
+        .link-group {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            min-width: 120px;
+        }
+        .link-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: var(--accent);
+            text-decoration: none;
+            background: var(--accent-light);
+            padding: 4px 10px;
+            border-radius: 4px;
+            white-space: nowrap;
+            transition: all 0.2s;
+        }
+        .link-pill:hover {
+            background: var(--accent);
+            color: white;
+        }
+        .link-pill .link-icon { font-size: 0.82rem; }
+
+        /* Bottom CTA */
+        .bottom-cta {
+            margin-top: 16px;
+            padding: 14px 20px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            border-radius: 6px;
+            text-align: center;
+            color: white;
+        }
+        .bottom-cta .cta-title {
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .bottom-cta .cta-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .bottom-cta .cta-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 0.78rem;
+            font-weight: 500;
+            background: rgba(255,255,255,0.15);
+            padding: 4px 14px;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+        .bottom-cta .cta-links a:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        /* PRINT STYLES */
+        @media print {
+            body { background: white; }
+            .page {
+                box-shadow: none;
+                margin: 0;
+                padding: 0.35in 0.5in;
+                max-width: 100%;
+            }
+            .toolbar { display: none; }
+            .p-card:hover { border-color: var(--border-light); }
+            .link-pill { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .portfolio-banner, .p-card.featured, .bottom-cta, .p-card-impact {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+
+        /* TOOLBAR */
+        .toolbar {
+            max-width: 8.5in;
+            margin: 0 auto 0;
+            padding: 16px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .toolbar-actions { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+        .toolbar a, .toolbar button {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            padding: 9px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s;
+            display: inline-flex; align-items: center; gap: 6px;
+            border: none;
+        }
+        .toolbar .back-link {
+            color: var(--accent);
+            background: var(--bg);
+            border: 1px solid var(--border);
+        }
+        .toolbar .back-link:hover { border-color: var(--accent); transform: translateX(-3px); }
+        .toolbar .download-btn {
+            background: var(--bg); color: var(--text);
+            border: 1px solid var(--border);
+        }
+        .toolbar .download-btn:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+        .toolbar .print-btn {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            box-shadow: 0 4px 12px var(--accent-glow);
+        }
+        .toolbar .print-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 18px var(--accent-glow); }
+        .toolbar .theme-btn {
+            width: 38px; height: 38px; padding: 0;
+            background: var(--bg); border: 1px solid var(--border);
+            color: var(--text); justify-content: center;
+            font-size: 1rem;
+        }
+        .toolbar .theme-btn:hover { border-color: var(--accent); color: var(--accent); transform: rotate(15deg); }
+        .toolbar .theme-btn .icon-sun { display: none; }
+        [data-theme="dark"] .toolbar .theme-btn .icon-moon { display: none; }
+        [data-theme="dark"] .toolbar .theme-btn .icon-sun { display: inline; }
+
+        /* PRINT: hide photo backgrounds for crisp output */
+        @media print {
+            .resume-photo { box-shadow: none; border: 1px solid var(--border); }
+            .header-with-photo { animation: none; }
+            .page { animation: none; opacity: 1; transform: none; box-shadow: none; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Toolbar (hidden in print) -->
+<div class="toolbar">
+    <a href="index.html" class="back-link">&larr; Back to Portfolio</a>
+    <div class="toolbar-actions">
+        <button class="theme-btn" id="themeToggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+            <span class="icon-moon">&#x1F319;</span>
+            <span class="icon-sun">&#x2600;</span>
+        </button>
+        <a href="Alexander F. Dalhog Jr. Resume.pdf" download class="download-btn">&#x2B07; Download PDF</a>
+        <button class="print-btn" onclick="window.print()">&#x1F5A8; Print / Save as PDF</button>
+    </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAGE 1: PROFESSIONAL RESUME                                   -->
+<!-- ============================================================ -->
+<div class="page">
+
+    <!-- Portfolio Banner -->
+    <div class="portfolio-banner">
+        <span class="banner-text">View my full interactive portfolio with live demos and architecture diagrams</span>
+        <a href="https://alexander-dalhog-portfolio.netlify.app" target="_blank" class="banner-url">alexander-dalhog-portfolio.netlify.app</a>
+    </div>
+
+    <!-- Header with photo -->
+    <div class="header-with-photo">
+        <div class="resume-photo">
+            <img src="photo.jpg" alt="Alexander Dalhog Jr." onerror="this.style.display='none';this.parentElement.textContent='AD';">
+        </div>
+        <div class="header-info">
+            <h1>Alexander F. Dalhog Jr.</h1>
+            <div class="tagline">Development & Experience Manager | AI Automation Builder | People Operations Leader</div>
+            <div class="contact-row" style="justify-content: flex-start;">
+                <span>alex.dalhog@gmail.com</span>
+                <span class="separator">|</span>
+                <span>(+63) 998 490 9379</span>
+                <span class="separator">|</span>
+                <span>Davao City, Philippines</span>
+                <span class="separator">|</span>
+                <a href="https://www.linkedin.com/in/alexander-dalhog-jr-b30a12194/" target="_blank">LinkedIn</a>
+                <span class="separator">|</span>
+                <a href="https://github.com/alexanderdalhog-cmd" target="_blank">GitHub</a>
+                <span class="separator">|</span>
+                <a href="https://alexander-dalhog-portfolio.netlify.app" target="_blank">Portfolio</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Summary -->
+    <div class="section">
+        <div class="section-title">Professional Summary</div>
+        <div class="summary">
+            <p>Development & Experience Manager with 8+ years in people operations, talent acquisition, organizational development, and remote team management. Currently leading the employee journey for 70+ virtual assistants at Workspaceco Outsourcing, serving Australian trades and professional services clients. Self-taught AI automation builder who designed and deployed production-grade systems using Claude AI, N8N Cloud, and Python &mdash; including a 6-agent training pipeline, real-time compliance monitoring, 54 training modules, and a data-driven SEO content strategy. Combines deep HR and operations expertise with hands-on workflow automation and AI engineering to drive process improvement at scale.</p>
+        </div>
+    </div>
+
+    <!-- Experience -->
+    <div class="section">
+        <div class="section-title">Professional Experience</div>
+
+        <div class="job">
+            <div class="job-header">
+                <span class="job-title">Development & Experience Manager</span>
+                <span class="job-date">Oct 2025 &mdash; Present</span>
+            </div>
+            <div class="job-company">Workspaceco Outsourcing &middot; Australia (Remote)</div>
+            <ul>
+                <li>Oversee the <strong>end-to-end employee lifecycle for 70+ virtual assistants</strong> across trades, farm, and professional services sectors in Australia</li>
+                <li>Built a <strong>6-agent AI training pipeline</strong> (SCOUT &rarr; FORGE &rarr; CLEAR &rarr; QUILL &rarr; PIXEL &rarr; LENS) using Claude API and FastAPI, reducing training deck production from <strong>15+ hours to under 30 minutes</strong></li>
+                <li>Deployed a <strong>real-time EOD compliance monitoring system</strong> on N8N Cloud that auto-tracks, classifies, and escalates daily submissions from 70+ VAs with zero manual intervention</li>
+                <li>Developed <strong>54 training modules</strong> across 3 tracks &mdash; CRM onboarding, professional development, and VA live masterclasses &mdash; using AI-powered content generation and Google Classroom</li>
+                <li>Executed a <strong>data-driven SEO content strategy</strong> producing 15 optimized articles and 12 LinkedIn posts targeting the Australian trades VA market</li>
+                <li>Engineered automated <strong>career &amp; wellness check-in system</strong>, <strong>WhatsApp recommendation analyzer</strong>, and <strong>AI executive inbox briefing</strong> &mdash; all production-deployed</li>
+                <li>Led <strong>L&amp;D strategy and organizational development</strong> with a bi-monthly two-track training rotation aligning team capabilities with business goals</li>
+            </ul>
+        </div>
+
+        <div class="job">
+            <div class="job-header">
+                <span class="job-title">Recruitment Manager</span>
+                <span class="job-date">Apr 2024 &mdash; Oct 2025</span>
+            </div>
+            <div class="job-company">Workspaceco Outsourcing &middot; Australia (Remote)</div>
+            <ul>
+                <li>Managed <strong>end-to-end talent acquisition</strong>, scaling the VA team to meet growing demand across Australian trades and professional services sectors</li>
+                <li>Built <strong>talent pipelines</strong> and developed screening frameworks, improving placement quality and reducing time-to-hire through data-driven recruitment metrics</li>
+            </ul>
+        </div>
+
+        <div class="job">
+            <div class="job-header">
+                <span class="job-title">Director of Talent & Operations</span>
+                <span class="job-date">Aug 2023 &mdash; May 2024</span>
+            </div>
+            <div class="job-company">TopLobster &middot; Digital Marketing Agency</div>
+            <ul>
+                <li>Directed <strong>cross-functional operations</strong> spanning talent acquisition, project management, finance, and stakeholder management</li>
+                <li>Oversaw full <strong>recruitment lifecycle</strong>, payroll (Gusto), invoicing/MRR tracking (QuickBooks), and delivered quarterly professional development programs</li>
+            </ul>
+        </div>
+
+        <div class="job">
+            <div class="job-header">
+                <span class="job-title">People & Culture Coordinator</span>
+                <span class="job-date">Aug 2021 &mdash; Oct 2023</span>
+            </div>
+            <div class="job-company">SellerCandy &middot; Amazon Seller Support</div>
+            <ul>
+                <li>Managed the <strong>full employee lifecycle</strong> from talent acquisition through onboarding to offboarding for a distributed remote team</li>
+                <li>Drove <strong>engagement initiatives</strong>, maintained knowledge management systems, and served as primary HR point of contact</li>
+            </ul>
+        </div>
+
+        <div class="job">
+            <div class="job-header">
+                <span class="job-title">Sr. Human Resources Officer</span>
+                <span class="job-date">Jul 2018 &mdash; Aug 2021</span>
+            </div>
+            <div class="job-company">Awesome OS Philippines &middot; BPO</div>
+            <ul>
+                <li>Managed <strong>employee relations</strong>, regulatory compliance with Philippine labor law, administrative investigations, and <strong>change management</strong> initiatives</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Skills -->
+    <div class="section">
+        <div class="section-title">Technical Skills</div>
+        <div class="skills-compact">
+            <span class="skills-label">AI & Automation</span>
+            <span class="skills-value">Claude AI (Opus/Sonnet), N8N Cloud, Multi-Agent Systems, FastAPI, Python, Playwright, Prompt Engineering, API Integration, Process Automation</span>
+
+            <span class="skills-label">People & HR</span>
+            <span class="skills-value">Talent Acquisition, Employee Lifecycle, L&D Strategy, Performance Management, Organizational Development, Remote Team Management, Retention, eNPS</span>
+
+            <span class="skills-label">Tools & Platforms</span>
+            <span class="skills-value">ClickUp, Asana, Monday.com, Google Workspace, Slack, Notion, HubSpot, Go-HighLevel, ServiceM8, Xero, QuickBooks, Canva, Google Classroom</span>
+        </div>
+    </div>
+
+    <!-- Education -->
+    <div class="section" style="margin-bottom: 0;">
+        <div class="section-title">Education</div>
+        <div class="edu-row">
+            <span class="edu-name">University of Mindanao</span>
+            <span class="edu-detail">Bolton Street, Davao City</span>
+        </div>
+    </div>
+
+</div>
+
+<!-- ============================================================ -->
+<!-- PAGE 2: PROJECTS & DEMOS SHOWCASE                             -->
+<!-- ============================================================ -->
+<div class="page page-break">
+
+    <div class="p2-header">
+        <h1>Projects & Live Demos</h1>
+        <div class="p2-sub">
+            Every project below was designed, built, and deployed by me to solve real operational challenges.<br>
+            Click any link to view live demos, video walkthroughs, and interactive architecture diagrams at
+            <a href="https://alexander-dalhog-portfolio.netlify.app/#projects" target="_blank">my portfolio</a>.
+        </div>
+    </div>
+
+    <div class="project-grid">
+
+        <!-- 1. AI Agent Training Pipeline -->
+        <div class="p-card featured">
+            <div class="p-card-content">
+                <div class="p-card-name">AI Agent Training Pipeline</div>
+                <div class="p-card-sub">6-Agent Autonomous Content Production System</div>
+                <div class="p-card-desc">Multi-agent pipeline (SCOUT &rarr; FORGE &rarr; CLEAR &rarr; QUILL &rarr; PIXEL &rarr; LENS) that transforms a training topic into a complete, quality-audited Canva presentation deck. Three human-in-the-loop checkpoints, three training modes, and automated quality scoring.</div>
+                <div class="p-card-tech">Python, FastAPI, Claude Opus/Sonnet, OpenRouter API, Canva API, Windows Task Scheduler</div>
+                <div class="p-card-impact">15+ hours reduced to under 30 minutes</div>
+            </div>
+            <div class="p-card-links">
+                <div class="link-group">
+                    <a href="https://alexander-dalhog-portfolio.netlify.app/#projects" target="_blank" class="link-pill"><span class="link-icon">&#x1F517;</span> Portfolio</a>
+                    <a href="https://drive.google.com/file/d/1hXUF-jGyecZLnu5QPqR6-Oa9CRamv0qH/preview" target="_blank" class="link-pill"><span class="link-icon">&#x1F3AC;</span> Video Demo</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. EOD Compliance Monitoring -->
+        <div class="p-card featured">
+            <div class="p-card-content">
+                <div class="p-card-name">EOD Compliance Monitoring System</div>
+                <div class="p-card-sub">3-Phase N8N Cloud Automation | Claude AI + Google Sheets</div>
+                <div class="p-card-desc">3-phase automated compliance system for 70+ VAs. Morning reminders, Gmail scanning with Claude AI classification (On-Time/Late/Missing), overnight catch-up, escalation drafts, and daily summary emails. Runs fully unattended.</div>
+                <div class="p-card-tech">N8N Cloud, Gmail API, Google Sheets API, Claude Sonnet, OpenRouter</div>
+                <div class="p-card-impact">Zero-touch daily compliance for 70+ VAs</div>
+            </div>
+            <div class="p-card-links">
+                <div class="link-group">
+                    <a href="https://alexander-dalhog-portfolio.netlify.app/#projects" target="_blank" class="link-pill"><span class="link-icon">&#x1F517;</span> Portfolio</a>
+                    <a href="https://alexander-dalhog-portfolio.netlify.app/#projects" target="_blank" class="link-pill"><span class="link-icon">&#x1F4F8;</span> Screenshots</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. Training & Dev Library -->
+        <div class="p-card">
+            <div class="p-card-content">
+                <div class="p-card-name">Training & Development Library</div>
+                <div class="p-card-sub">54 Modules &middot; CRM + Professional Dev + VA Live Training</div>
+                <div class="p-card-desc">AI-generated branded training decks (PPTX), quizzes, and resource compilations across CRM onboarding, professional development, and VA masterclasses. Deployed via Google Classroom with batch automation.</div>
+                <div class="p-card-tech">Claude Code Skills, Google Classroom, Google Apps Script, PPTX Generation, Canva</div>
+                <div class="p-card-impact">54 modules across 3 training tracks</div>
+            </div>
+            <div class="p-card-links">
+                <div class="link-group">
+                    <a href="https://alexander-dalhog-portfolio.netlify.app/#projects" target="_blank" class="link-pill"><span class="link-icon">&#x1F517;</span> Portfolio</a>
+                    <a href="https://drive.google.com/file/d/1JzQJWnWyUVaefdbHcZMKC4mX-FE2T6h5/preview" target="_blank" class="link-pill"><span class="link-icon">&#x1F3AC;</span> Video Demo</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. SEO Content Strategy -->
+        <div class="p-card">
+            <div class="p-card-content">
+                <div class="p-card-name">SEO Content Strategy</div>
+                <div class="p-card-sub">15 Articles &middot; 12 LinkedIn Posts &middot; Australian Trades VA Market</div>
+                <div class="p-card-desc">Targeted SEO content strategy for the Australian trades VA market &mdash; plumbers, electricians, builders, HVAC, landscapers. AI-assisted production establishing organic market authority.</div>
+                <div class="p-card-tech">Claude, SEO Strategy, Keyword Research, Content Marketing, LinkedIn</div>
+            </div>
+            <div class="p-card-links">
+                <div class="link-group">
+                    <a href="https://alexander-dalhog-portfolio.netlify.app/#projects" target="_blank" class="link-pill"><span class="link-icon">&#x1F517;</span> Portfolio</a>
+                    <a href="https://alexander-dalhog-portfolio.netlify.app/wsc-seo-agent-diagram.html" target="_blank" class="link-pill"><span class="link-icon">&#x1F4CA;</span> Agent Diagram</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. VA Career & Wellness -->
+        <div class="p-card">
+            <div class="p-card-content">
+                <div class="p-card-name">VA Career & Wellness Check-in System</div>
+                <div class="p-card-sub">Automated 1:1 Analysis &middot; 30+ Sessions Processed</div>
+                <div class="p-card-desc">Automated check-in tracking system that processes 1:1 meeting transcripts via Fathom integration, generating structured career development and wellbeing reports per VA.</div>
+                <div class="p-card-tech">Fathom/Pattern Notes, Claude Analysis, Google Sheets, DOCX/PDF Generation</div>
+            </div>
+            <div class="p-card-links">
+                <div class="link-group">
+                    <a href="https://alexander-dalhog-portfolio.netlify.app/#projects" target="_blank" class="link-pill"><span class="link-icon">&#x1F517;</span> Portfolio</a>
+                    <a href="https://alexander-dalhog-portfolio.netlify.app/va-ops-agent-diagram.html" target="_blank" class="link-pill"><span class="link-icon">&#x1F4CA;</span> Workflow Diagram</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 6. WhatsApp Recommendation Analyzer -->
+        <div class="p-card">
+            <div class="p-card-content">
+                <div class="p-card-name">WhatsApp Recommendation Analyzer</div>
+                <div class="p-card-sub">AI-Powered Network Intelligence</div>
+                <div class="p-card-desc">Playwright-based scraper that reads WhatsApp group chats, batches messages for Claude analysis, and extracts structured recommendation networks with endorsement tracking.</div>
+                <div class="p-card-tech">Python, Playwright, Claude Opus, Flask, Google Sheets API</div>
+            </div>
+            <div class="p-card-links">
+                <div class="link-group">
+                    <a href="https://alexander-dalhog-portfolio.netlify.app/#projects" target="_blank" class="link-pill"><span class="link-icon">&#x1F517;</span> Portfolio</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 7. Executive Inbox Briefing -->
+        <div class="p-card">
+            <div class="p-card-content">
+                <div class="p-card-name">WSC Executive Inbox Briefing</div>
+                <div class="p-card-sub">Scheduled AI Email Triage & Daily Briefing</div>
+                <div class="p-card-desc">Fully autonomous daily briefing triggered every weekday at 7 AM. Scans Gmail, classifies emails, drafts replies, pulls calendar events, creates Notion pages, and delivers branded HTML executive summary.</div>
+                <div class="p-card-tech">Claude Code, Remote Triggers, Gmail MCP, Google Calendar MCP, Notion MCP</div>
+            </div>
+            <div class="p-card-links">
+                <div class="link-group">
+                    <a href="https://alexander-dalhog-portfolio.netlify.app/#projects" target="_blank" class="link-pill"><span class="link-icon">&#x1F517;</span> Portfolio</a>
+                    <a href="https://drive.google.com/file/d/1wAa3L9sSIgLaOy-Ksf43dk_KDufNdIVn/preview" target="_blank" class="link-pill"><span class="link-icon">&#x1F3AC;</span> Video Demo</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 8. ReplyIQ -->
+        <div class="p-card featured">
+            <div class="p-card-content">
+                <div class="p-card-name">ReplyIQ - AI Email Reply Agent</div>
+                <div class="p-card-sub">Vibe-Coded Full-Stack App | Built with Lovable</div>
+                <div class="p-card-desc">Full-stack web application that monitors Gmail, uses knowledge base context to generate tone-matched email replies, with dashboard analytics and configurable settings.</div>
+                <div class="p-card-tech">Lovable (Vibe Coding), React, Supabase, Gmail API, Claude AI</div>
+            </div>
+            <div class="p-card-links">
+                <div class="link-group">
+                    <a href="https://alexander-dalhog-portfolio.netlify.app/#projects" target="_blank" class="link-pill"><span class="link-icon">&#x1F517;</span> Portfolio</a>
+                    <a href="https://drive.google.com/file/d/1YY7YZA1b62I0XJx47Z77mZpZysNCa_wz/preview" target="_blank" class="link-pill"><span class="link-icon">&#x1F3AC;</span> Video Demo</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Bottom CTA -->
+    <div class="bottom-cta">
+        <div class="cta-title">Let's Connect</div>
+        <div class="cta-links">
+            <a href="https://alexander-dalhog-portfolio.netlify.app" target="_blank">Full Portfolio</a>
+            <a href="https://www.linkedin.com/in/alexander-dalhog-jr-b30a12194/" target="_blank">LinkedIn</a>
+            <a href="https://github.com/alexanderdalhog-cmd" target="_blank">GitHub</a>
+            <a href="mailto:alex.dalhog@gmail.com">alex.dalhog@gmail.com</a>
+            <a href="https://calendly.com/alexdalhog/30min" target="_blank">Book a 30-Min Meeting</a>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    (function() {
+        var saved = localStorage.getItem('theme');
+        if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        }
+        document.getElementById('themeToggle').addEventListener('click', function() {
+            var current = document.documentElement.getAttribute('data-theme');
+            var next = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            localStorage.setItem('theme', next);
+        });
+    })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VA Ops Agent — Swimlane Workflow</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ── WSC BRAND TOKENS ── */
+:root {
+  --blue:       #17C9CE;
+  --orange:     #FF6B35;
+  --blue-lt:    #E8FAFB;
+  --orange-lt:  #FFF0EB;
+  --body:       #2D2D2D;
+  --muted:      #888888;
+  --border:     #E5E7EB;
+  --bg:         #F7F9FC;
+  --white:      #FFFFFF;
+  --green:      #22C55E;
+  --green-lt:   #DCFCE7;
+  --purple:     #8B5CF6;
+  --purple-lt:  #F3F0FF;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Montserrat', Arial, sans-serif;
+  background: var(--bg);
+  color: var(--body);
+  padding: 40px 36px 60px;
+  min-width: 1180px;
+}
+
+/* ── HEADER ── */
+.header {
+  background: var(--blue);
+  border-radius: 16px;
+  padding: 28px 40px;
+  margin-bottom: 36px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+}
+.wordmark {
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.65);
+  margin-bottom: 8px;
+}
+.header-title {
+  font-size: 26px;
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.2;
+}
+.header-sub {
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.8);
+  margin-top: 6px;
+}
+.header-badges {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  flex-shrink: 0;
+}
+.badge {
+  background: rgba(255,255,255,0.18);
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 10px;
+  padding: 10px 18px;
+  text-align: center;
+  white-space: nowrap;
+}
+.badge-time {
+  font-size: 12px;
+  font-weight: 800;
+  color: #fff;
+}
+.badge-label {
+  font-size: 9px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.7);
+  margin-top: 3px;
+}
+
+/* ── SECTION LABEL ── */
+.section-label {
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 12px;
+  margin-top: 32px;
+}
+
+/* ═══════════════════════════════
+   SWIMLANE DIAGRAM
+═══════════════════════════════ */
+.swimlane {
+  background: var(--white);
+  border-radius: 16px;
+  border: 1.5px solid var(--border);
+  overflow: hidden;
+}
+
+/* each row */
+.lane {
+  display: grid;
+  grid-template-columns: 124px 1fr;
+  border-bottom: 1.5px solid var(--border);
+}
+.lane:last-child { border-bottom: none; }
+
+/* lane label column */
+.lane-label {
+  padding: 18px 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 6px;
+  border-right: 1.5px solid var(--border);
+}
+.ll-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 17px;
+  flex-shrink: 0;
+}
+.ll-name {
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  line-height: 1.3;
+}
+.ll-sub {
+  font-size: 8px;
+  font-weight: 500;
+  color: var(--muted);
+  line-height: 1.3;
+}
+
+/* lane colour themes */
+.lt-trigger .lane-label  { background: #F8F9FA; }
+.lt-trigger .ll-icon     { background: #EAECEF; }
+.lt-trigger .ll-name     { color: var(--body); }
+
+.lt-p1 .lane-label { background: var(--blue-lt); }
+.lt-p1 .ll-icon    { background: var(--blue); color: #fff; }
+.lt-p1 .ll-name    { color: #0A9499; }
+
+.lt-p2 .lane-label { background: var(--orange-lt); }
+.lt-p2 .ll-icon    { background: var(--orange); color: #fff; }
+.lt-p2 .ll-name    { color: #C44A1A; }
+
+.lt-state .lane-label { background: var(--purple-lt); }
+.lt-state .ll-icon    { background: var(--purple); color: #fff; }
+.lt-state .ll-name    { color: #6D3FD6; }
+
+.lt-tools .lane-label { background: var(--green-lt); }
+.lt-tools .ll-icon    { background: var(--green); color: #fff; }
+.lt-tools .ll-name    { color: #16A34A; }
+
+/* lane content column */
+.lane-content {
+  padding: 20px 24px;
+  display: flex;
+  align-items: stretch;
+  gap: 10px;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+}
+
+/* ── CARDS ── */
+.card {
+  border-radius: 12px;
+  border: 1.5px solid var(--border);
+  padding: 13px 15px;
+  min-width: 155px;
+  max-width: 195px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.c-step {
+  font-size: 7.5px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.c-title {
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 7px;
+}
+.c-detail {
+  font-size: 9.5px;
+  font-weight: 500;
+  color: var(--muted);
+  line-height: 1.55;
+  flex: 1;
+}
+.c-tag {
+  display: inline-block;
+  font-size: 7.5px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  padding: 3px 8px;
+  border-radius: 20px;
+  margin-top: 9px;
+  align-self: flex-start;
+}
+
+/* card theme: blue */
+.cb { border-color: var(--blue); background: var(--blue-lt); }
+.cb .c-step  { color: #0A9499; }
+.cb .c-tag   { background: var(--blue); color: #fff; }
+
+/* card theme: orange */
+.co { border-color: var(--orange); background: var(--orange-lt); }
+.co .c-step  { color: #C44A1A; }
+.co .c-tag   { background: var(--orange); color: #fff; }
+
+/* card theme: purple */
+.cp { border-color: var(--purple); background: var(--purple-lt); }
+.cp .c-step  { color: #6D3FD6; }
+.cp .c-tag   { background: var(--purple); color: #fff; }
+
+/* card theme: neutral */
+.cn { border-color: var(--border); background: var(--white); }
+.cn .c-step  { color: var(--muted); }
+.cn .c-tag   { background: var(--border); color: var(--body); }
+
+/* ── ARROW ── */
+.arr {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  font-size: 18px;
+  font-weight: 700;
+  padding: 0 2px;
+  color: var(--border);
+  margin-top: -6px;
+}
+.arr-b { color: var(--blue); }
+.arr-o { color: var(--orange); }
+
+/* ── TRIGGER CHIPS ── */
+.trig-chip {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--body);
+  color: #fff;
+  border-radius: 11px;
+  padding: 11px 18px;
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.trig-chip-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  background: rgba(255,255,255,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+}
+.trig-div {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--muted);
+  white-space: nowrap;
+  padding: 0 4px;
+}
+
+/* ── TOOL CHIPS ── */
+.tool-chip {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: 1.5px solid #BBF7D0;
+  background: var(--green-lt);
+  border-radius: 11px;
+  padding: 11px 16px;
+  flex-shrink: 0;
+  min-width: 170px;
+}
+.tc-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: var(--green);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+.tc-name {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--body);
+}
+.tc-desc {
+  font-size: 9px;
+  font-weight: 500;
+  color: var(--muted);
+  margin-top: 2px;
+  line-height: 1.4;
+}
+
+/* ── SPACER ── */
+.spacer { flex: 1; }
+
+/* ═══════════════════════════════
+   PIPELINE FLOW
+═══════════════════════════════ */
+.pipeline {
+  background: var(--white);
+  border-radius: 16px;
+  border: 1.5px solid var(--border);
+  padding: 28px 32px 30px;
+  margin-top: 24px;
+}
+.pipeline-title {
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 24px;
+}
+.pipeline-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+}
+.ps {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  min-width: 100px;
+  flex: 1;
+}
+.ps-circle {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 10px;
+  flex-shrink: 0;
+}
+.ps-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--body);
+  line-height: 1.4;
+}
+.ps-sub {
+  font-size: 8.5px;
+  font-weight: 500;
+  color: var(--muted);
+  margin-top: 3px;
+  line-height: 1.4;
+}
+.pc {
+  flex-shrink: 0;
+  width: 28px;
+  display: flex;
+  align-items: center;
+  margin-top: 22px;
+}
+.pc-line {
+  width: 100%;
+  height: 2px;
+  border-radius: 2px;
+}
+.pc-neutral { background: var(--border); }
+.pc-blue    { background: var(--blue); }
+.pc-orange  { background: var(--orange); }
+.pc-green   { background: var(--green); }
+
+/* ═══════════════════════════════
+   DELIVERABLES GRID
+═══════════════════════════════ */
+.del-wrap {
+  background: var(--white);
+  border-radius: 16px;
+  border: 1.5px solid var(--border);
+  padding: 28px 32px;
+  margin-top: 24px;
+}
+.del-title {
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 20px;
+}
+.del-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.del-table th {
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 10px 18px;
+  text-align: left;
+  border-bottom: 2px solid var(--border);
+  vertical-align: middle;
+}
+.th-out  { color: var(--muted); width: 50%; }
+.th-p1   { color: #0A9499; background: var(--blue-lt); text-align: center; width: 25%; }
+.th-p2   { color: #C44A1A; background: var(--orange-lt); text-align: center; width: 25%; }
+.del-table td {
+  font-size: 11px;
+  font-weight: 500;
+  padding: 10px 18px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+.del-table tr:last-child td { border-bottom: none; }
+.td-out { font-weight: 700; font-size: 11px; }
+.check-cell { text-align: center; }
+.chk {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 800;
+  margin: 0 auto;
+}
+.chk-b { background: var(--blue); color: #fff; }
+.chk-o { background: var(--orange); color: #fff; }
+.chk-bo {
+  background: linear-gradient(135deg, var(--blue) 50%, var(--orange) 50%);
+  color: #fff;
+  font-size: 10px;
+}
+.chk-x { background: var(--bg); border: 1.5px solid var(--border); color: transparent; }
+
+/* ── FOOTER ── */
+.footer {
+  margin-top: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 8.5px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.dot {
+  width: 3px;
+  height: 3px;
+  background: var(--muted);
+  border-radius: 50%;
+  display: inline-block;
+  margin: 0 7px;
+  vertical-align: middle;
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ HEADER ═══ -->
+<div class="header">
+  <div>
+    <div class="wordmark">WORKSPACECO.</div>
+    <div class="header-title">VA Ops Agent</div>
+    <div class="header-sub">Swimlane Workflow Diagram &mdash; Automated Career &amp; Wellness Check-in Operations</div>
+  </div>
+  <div class="header-badges">
+    <div class="badge">
+      <div class="badge-time">9:00 AM AWST</div>
+      <div class="badge-label">Phase 1 &mdash; Morning</div>
+    </div>
+    <div class="badge">
+      <div class="badge-time">1:00 PM AWST</div>
+      <div class="badge-label">Phase 2 &mdash; Afternoon</div>
+    </div>
+    <div class="badge">
+      <div class="badge-time">Mon &ndash; Fri</div>
+      <div class="badge-label">Weekdays Only</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SWIMLANE SECTION LABEL ═══ -->
+<div class="section-label">Cross-Functional Swimlane Diagram</div>
+
+<!-- ═══ SWIMLANE ═══ -->
+<div class="swimlane">
+
+  <!-- ROW 1: TRIGGER -->
+  <div class="lane lt-trigger">
+    <div class="lane-label">
+      <div class="ll-icon">⏰</div>
+      <div class="ll-name">Trigger</div>
+      <div class="ll-sub">CoWork<br>Scheduler</div>
+    </div>
+    <div class="lane-content">
+      <div class="trig-chip">
+        <div class="trig-chip-icon">🕘</div>
+        9:00 AM AWST &mdash; Phase 1 Run
+      </div>
+      <div class="trig-div">&nbsp;&nbsp;runs independently&nbsp;&nbsp;</div>
+      <div class="trig-chip">
+        <div class="trig-chip-icon">🕐</div>
+        1:00 PM AWST &mdash; Phase 2 Run
+      </div>
+      <div class="spacer"></div>
+      <div style="font-size:9.5px;font-weight:600;color:var(--muted);text-align:right;white-space:nowrap;line-height:1.8;padding-right:8px;">
+        Both phases are scheduled<br>CoWork tasks running<br>Mon&ndash;Fri automatically
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 2: PHASE 1 -->
+  <div class="lane lt-p1">
+    <div class="lane-label">
+      <div class="ll-icon">🌅</div>
+      <div class="ll-name" style="color:#0A9499;">Phase 1</div>
+      <div class="ll-sub">Morning<br>Agent</div>
+    </div>
+    <div class="lane-content">
+
+      <div class="card cb">
+        <div class="c-step">Input</div>
+        <div class="c-title">Scan Today's Calendar</div>
+        <div class="c-detail">Fetch all "1:1 Career &amp; Wellness Check-in" events scheduled for today</div>
+        <div class="c-tag">gcal_list_events</div>
+      </div>
+
+      <div class="arr arr-b">&#8594;</div>
+
+      <div class="card cb">
+        <div class="c-step">Filter</div>
+        <div class="c-title">Deduplicate Check</div>
+        <div class="c-detail">Skip any event IDs already logged in <em>reminders_sent</em> state to prevent re-sends</div>
+        <div class="c-tag">State Check</div>
+      </div>
+
+      <div class="arr arr-b">&#8594;</div>
+
+      <div class="card cb">
+        <div class="c-step">Action</div>
+        <div class="c-title">Draft Reminder Emails</div>
+        <div class="c-detail">One branded Gmail draft per VA with time, Google Meet link, and prep tips</div>
+        <div class="c-tag">gmail_create_draft</div>
+      </div>
+
+      <div class="arr arr-b">&#8594;</div>
+
+      <div class="card cb">
+        <div class="c-step">Action</div>
+        <div class="c-title">Prepare Chat Messages</div>
+        <div class="c-detail">Format Google Chat recap message ready for Alexander to copy-paste post-check-in</div>
+        <div class="c-tag">Output to User</div>
+      </div>
+
+      <div class="arr arr-b">&#8594;</div>
+
+      <div class="card cb">
+        <div class="c-step">Output</div>
+        <div class="c-title">Write State File</div>
+        <div class="c-detail">Log sent event IDs into <em>reminders_sent</em> to lock against future duplicate sends</div>
+        <div class="c-tag">.va-reminders-state.json</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ROW 3: PHASE 2 -->
+  <div class="lane lt-p2">
+    <div class="lane-label">
+      <div class="ll-icon">🌆</div>
+      <div class="ll-name" style="color:#C44A1A;">Phase 2</div>
+      <div class="ll-sub">Afternoon<br>Agent</div>
+    </div>
+    <div class="lane-content">
+
+      <div class="card co">
+        <div class="c-step">Input</div>
+        <div class="c-title">Fetch Events &amp; Status</div>
+        <div class="c-detail">Pull today + upcoming check-ins. Detect declined RSVPs via attendee status</div>
+        <div class="c-tag">gcal_list_events</div>
+      </div>
+
+      <div class="arr arr-o">&#8594;</div>
+
+      <div class="card co">
+        <div class="c-step">Detect</div>
+        <div class="c-title">Declines &amp; No-Shows</div>
+        <div class="c-detail">Flag declined events. Check past events with no Fathom recording as no-shows</div>
+        <div class="c-tag">State Check</div>
+      </div>
+
+      <div class="arr arr-o">&#8594;</div>
+
+      <div class="card co" style="min-width:175px;">
+        <div class="c-step">Auto-Reschedule Logic</div>
+        <div class="c-title">Find Available Slot</div>
+        <div class="c-detail">10&ndash;12 PM window &middot; 15 min + buffer &middot; max 3/day &middot; starts at :00/:30 only &middot; skip event-blocked days</div>
+        <div class="c-tag">gcal_create_event</div>
+      </div>
+
+      <div class="arr arr-o">&#8594;</div>
+
+      <div class="card co">
+        <div class="c-step">Notify</div>
+        <div class="c-title">Draft Notification Emails</div>
+        <div class="c-detail">Decline or no-show email drafts with new calendar invite link attached</div>
+        <div class="c-tag">gmail_create_draft</div>
+      </div>
+
+      <div class="arr arr-o">&#8594;</div>
+
+      <div class="card co">
+        <div class="c-step">Fathom</div>
+        <div class="c-title">Poll for Recordings</div>
+        <div class="c-detail">Search for unprocessed "1:1 Career &amp; Wellness Check-in" recordings via Fathom MCP</div>
+        <div class="c-tag">fathom: list_meetings</div>
+      </div>
+
+      <div class="arr arr-o">&#8594;</div>
+
+      <div class="card co">
+        <div class="c-step">Generate</div>
+        <div class="c-title">VA Reports</div>
+        <div class="c-detail">Fetch transcript &rarr; extract va_data.json &rarr; Wellness Report + Quick Wins Report</div>
+        <div class="c-tag">va-checkin skill</div>
+      </div>
+
+      <div class="arr arr-o">&#8594;</div>
+
+      <div class="card co">
+        <div class="c-step">Output</div>
+        <div class="c-title">Update Both State Files</div>
+        <div class="c-detail">Log rescheduled, notified_declines, notified_noshow, processed_recordings</div>
+        <div class="c-tag">Both State Files</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ROW 4: STATE MANAGEMENT -->
+  <div class="lane lt-state">
+    <div class="lane-label">
+      <div class="ll-icon">🗄️</div>
+      <div class="ll-name">State</div>
+      <div class="ll-sub">JSON Files<br>Persistence</div>
+    </div>
+    <div class="lane-content" style="gap:16px;">
+
+      <div class="card cp" style="min-width:215px;max-width:240px;">
+        <div class="c-step">.va-reminders-state.json</div>
+        <div class="c-title">Morning &amp; Afternoon State</div>
+        <div class="c-detail" style="line-height:1.85;">
+          <strong style="color:var(--purple);">reminders_sent</strong> &mdash; event IDs confirmed sent<br>
+          <strong style="color:var(--purple);">rescheduled</strong> &mdash; successfully rescheduled IDs<br>
+          <strong style="color:var(--purple);">notified_declines</strong> &mdash; decline notification IDs<br>
+          <strong style="color:var(--purple);">notified_noshow</strong> &mdash; no-show notification IDs<br>
+          <strong style="color:var(--purple);">last_run</strong> &mdash; ISO 8601 timestamp
+        </div>
+        <div class="c-tag">Shared across Phase 1 + Phase 2</div>
+      </div>
+
+      <div class="card cp" style="min-width:215px;max-width:240px;">
+        <div class="c-step">.va-checkin-processed.json</div>
+        <div class="c-title">Fathom Processing State</div>
+        <div class="c-detail" style="line-height:1.85;">
+          <strong style="color:var(--purple);">processed_recordings</strong> &mdash; Fathom meeting IDs<br>
+          <strong style="color:var(--purple);">last_checked</strong> &mdash; last poll UTC timestamp<br>
+          <strong style="color:var(--purple);">failed_recordings</strong> &mdash; error retry tracking<br>
+          <br>
+          Initialised automatically on first Phase 2 run
+        </div>
+        <div class="c-tag">Phase 2 only &mdash; Fathom deduplication</div>
+      </div>
+
+      <div class="spacer"></div>
+
+      <div style="background:var(--purple-lt);border:1.5px solid var(--purple);border-radius:11px;padding:14px 18px;flex-shrink:0;max-width:195px;">
+        <div style="font-size:8.5px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--purple);margin-bottom:8px;">Duplicate Prevention</div>
+        <div style="font-size:10px;font-weight:500;color:var(--body);line-height:1.7;">
+          Both phases check state<br>
+          before every action.<br>
+          No duplicate emails,<br>
+          events, or reports &mdash; ever.
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ROW 5: INTEGRATIONS -->
+  <div class="lane lt-tools" style="">
+    <div class="lane-label">
+      <div class="ll-icon">🔌</div>
+      <div class="ll-name">Tools</div>
+      <div class="ll-sub">MCP<br>Integrations</div>
+    </div>
+    <div class="lane-content" style="gap:14px;">
+
+      <div class="tool-chip">
+        <div class="tc-icon">📅</div>
+        <div>
+          <div class="tc-name">Google Calendar</div>
+          <div class="tc-desc">List, create &amp; update events<br>Find free/meeting times</div>
+        </div>
+      </div>
+
+      <div class="tool-chip">
+        <div class="tc-icon">✉️</div>
+        <div>
+          <div class="tc-name">Gmail</div>
+          <div class="tc-desc">Create draft emails<br>Reminder + notification templates</div>
+        </div>
+      </div>
+
+      <div class="tool-chip">
+        <div class="tc-icon">🎙️</div>
+        <div>
+          <div class="tc-name">Fathom</div>
+          <div class="tc-desc">List meetings &amp; search<br>Fetch full transcripts</div>
+        </div>
+      </div>
+
+      <div class="tool-chip">
+        <div class="tc-icon">📄</div>
+        <div>
+          <div class="tc-name">File System</div>
+          <div class="tc-desc">Read/write state JSON<br>Generate .docx + .pdf reports</div>
+        </div>
+      </div>
+
+      <div class="spacer"></div>
+
+      <div style="font-size:9px;font-weight:600;color:#16A34A;text-align:right;padding-right:8px;white-space:nowrap;line-height:1.8;">
+        All connected via<br>Cowork MCP layer
+      </div>
+
+    </div>
+  </div>
+
+</div>
+<!-- end swimlane -->
+
+
+<!-- ═══ PIPELINE SECTION LABEL ═══ -->
+<div class="section-label">End-to-End Execution Pipeline</div>
+
+<!-- ═══ PIPELINE FLOW ═══ -->
+<div class="pipeline">
+  <div class="pipeline-title">Sequential Step Flow &mdash; Trigger to Final Output</div>
+  <div class="pipeline-row">
+
+    <div class="ps">
+      <div class="ps-circle" style="background:var(--body);">1</div>
+      <div class="ps-label">Scheduled<br>Trigger</div>
+      <div class="ps-sub">CoWork fires<br>9 AM or 1 PM</div>
+    </div>
+    <div class="pc"><div class="pc-line pc-neutral"></div></div>
+
+    <div class="ps">
+      <div class="ps-circle" style="background:var(--blue);">2</div>
+      <div class="ps-label">Calendar<br>Scan</div>
+      <div class="ps-sub">Fetch today's<br>check-in events</div>
+    </div>
+    <div class="pc"><div class="pc-line pc-blue"></div></div>
+
+    <div class="ps">
+      <div class="ps-circle" style="background:var(--blue);">3</div>
+      <div class="ps-label">State<br>Check</div>
+      <div class="ps-sub">Skip already-<br>processed IDs</div>
+    </div>
+    <div class="pc"><div class="pc-line pc-blue"></div></div>
+
+    <div class="ps">
+      <div class="ps-circle" style="background:var(--blue);">4</div>
+      <div class="ps-label">Phase 1<br>Actions</div>
+      <div class="ps-sub">Emails drafted<br>Chat msgs ready</div>
+    </div>
+    <div class="pc"><div class="pc-line pc-neutral"></div></div>
+
+    <div class="ps">
+      <div class="ps-circle" style="background:var(--orange);">5</div>
+      <div class="ps-label">Detect Decline<br>&amp; No-Show</div>
+      <div class="ps-sub">Flag &amp; queue<br>notification</div>
+    </div>
+    <div class="pc"><div class="pc-line pc-orange"></div></div>
+
+    <div class="ps">
+      <div class="ps-circle" style="background:var(--orange);">6</div>
+      <div class="ps-label">Auto-<br>Reschedule</div>
+      <div class="ps-sub">New event created<br>10&ndash;12 PM window</div>
+    </div>
+    <div class="pc"><div class="pc-line pc-orange"></div></div>
+
+    <div class="ps">
+      <div class="ps-circle" style="background:var(--orange);">7</div>
+      <div class="ps-label">Fathom<br>Poll</div>
+      <div class="ps-sub">Find unprocessed<br>recordings</div>
+    </div>
+    <div class="pc"><div class="pc-line pc-orange"></div></div>
+
+    <div class="ps">
+      <div class="ps-circle" style="background:var(--orange);">8</div>
+      <div class="ps-label">Report<br>Generation</div>
+      <div class="ps-sub">Wellness + Quick<br>Wins .docx/.pdf</div>
+    </div>
+    <div class="pc"><div class="pc-line pc-green"></div></div>
+
+    <div class="ps">
+      <div class="ps-circle" style="background:var(--green);">9</div>
+      <div class="ps-label">State<br>Update</div>
+      <div class="ps-sub">Write to both<br>JSON files</div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ═══ DELIVERABLES SECTION LABEL ═══ -->
+<div class="section-label">Output Deliverables Matrix</div>
+
+<!-- ═══ DELIVERABLES GRID ═══ -->
+<div class="del-wrap">
+  <div class="del-title">What Each Phase Produces</div>
+  <table class="del-table">
+    <thead>
+      <tr>
+        <th class="th-out">Output Deliverable</th>
+        <th class="th-p1">Phase 1 &mdash; Morning</th>
+        <th class="th-p2">Phase 2 &mdash; Afternoon</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="td-out">VA Reminder Email (Gmail Draft)</td>
+        <td class="check-cell"><div class="chk chk-b">&#10003;</div></td>
+        <td class="check-cell"><div class="chk chk-x"></div></td>
+      </tr>
+      <tr>
+        <td class="td-out">Google Chat Recap Message</td>
+        <td class="check-cell"><div class="chk chk-b">&#10003;</div></td>
+        <td class="check-cell"><div class="chk chk-x"></div></td>
+      </tr>
+      <tr>
+        <td class="td-out">Decline Notification Email (Draft)</td>
+        <td class="check-cell"><div class="chk chk-x"></div></td>
+        <td class="check-cell"><div class="chk chk-o">&#10003;</div></td>
+      </tr>
+      <tr>
+        <td class="td-out">No-Show Notification Email (Draft)</td>
+        <td class="check-cell"><div class="chk chk-x"></div></td>
+        <td class="check-cell"><div class="chk chk-o">&#10003;</div></td>
+      </tr>
+      <tr>
+        <td class="td-out">Auto-Rescheduled Calendar Event + Meet Link</td>
+        <td class="check-cell"><div class="chk chk-x"></div></td>
+        <td class="check-cell"><div class="chk chk-o">&#10003;</div></td>
+      </tr>
+      <tr>
+        <td class="td-out">VA Wellness Check-in Summary Report (.docx + .pdf)</td>
+        <td class="check-cell"><div class="chk chk-x"></div></td>
+        <td class="check-cell"><div class="chk chk-o">&#10003;</div></td>
+      </tr>
+      <tr>
+        <td class="td-out">Quick Wins Summary Report (.docx + .pdf)</td>
+        <td class="check-cell"><div class="chk chk-x"></div></td>
+        <td class="check-cell"><div class="chk chk-o">&#10003;</div></td>
+      </tr>
+      <tr>
+        <td class="td-out">State File Updates (duplicate prevention)</td>
+        <td class="check-cell"><div class="chk chk-b">&#10003;</div></td>
+        <td class="check-cell"><div class="chk chk-o">&#10003;</div></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+<!-- ═══ FOOTER ═══ -->
+<div class="footer">
+  <span>WORKSPACECO. &mdash; Internal Systems Documentation</span>
+  <span>VA Ops Agent v1.0<span class="dot"></span>Swimlane Workflow<span class="dot"></span>Confidential</span>
+</div>
+
+</body>
+</html>

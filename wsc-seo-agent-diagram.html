@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>WSC SEO Agent Workflow</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #f0f4f8;
+      padding: 40px 20px;
+      min-height: 100vh;
+    }
+
+    .page-title {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    .page-title h1 {
+      font-size: 28px;
+      font-weight: 800;
+      color: #1a1a2e;
+      letter-spacing: -0.5px;
+    }
+    .page-title p {
+      font-size: 14px;
+      color: #666;
+      margin-top: 6px;
+    }
+
+    /* ── TOP TRIGGER ── */
+    .trigger-row {
+      display: flex;
+      justify-content: center;
+      margin: 30px 0 0;
+    }
+    .trigger-box {
+      background: #1a1a2e;
+      color: #fff;
+      border-radius: 14px;
+      padding: 18px 40px;
+      text-align: center;
+      min-width: 260px;
+      box-shadow: 0 4px 20px rgba(26,26,46,0.25);
+    }
+    .trigger-box .label { font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; opacity: 0.6; }
+    .trigger-box .title { font-size: 18px; font-weight: 700; margin-top: 4px; }
+    .trigger-box .sub { font-size: 12px; opacity: 0.75; margin-top: 4px; }
+
+    /* ── VERTICAL CONNECTOR ── */
+    .v-conn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      margin: 0;
+      height: 40px;
+    }
+    .v-conn .line {
+      width: 2px;
+      background: #c0c8d8;
+      flex: 1;
+    }
+    .v-conn .arrow {
+      width: 0;
+      height: 0;
+      border-left: 7px solid transparent;
+      border-right: 7px solid transparent;
+      border-top: 10px solid #c0c8d8;
+    }
+
+    /* ── AGENTS ROW ── */
+    .agents-row {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-top: 0;
+    }
+
+    /* ── AGENT CARD ── */
+    .agent-card {
+      border-radius: 16px;
+      padding: 0;
+      width: 220px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+      overflow: hidden;
+      position: relative;
+      transition: transform 0.2s;
+    }
+    .agent-card:hover { transform: translateY(-4px); }
+
+    .agent-header {
+      padding: 16px 18px 12px;
+      color: #fff;
+      position: relative;
+    }
+    .agent-badge {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      opacity: 0.8;
+    }
+    .agent-name {
+      font-size: 22px;
+      font-weight: 900;
+      line-height: 1;
+      margin-top: 4px;
+    }
+    .agent-role {
+      font-size: 12px;
+      font-weight: 600;
+      margin-top: 4px;
+      opacity: 0.9;
+    }
+    .agent-icon {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      font-size: 28px;
+      opacity: 0.35;
+    }
+
+    .agent-body {
+      background: #fff;
+      padding: 14px 18px 16px;
+    }
+    .agent-body ul {
+      list-style: none;
+      padding: 0;
+    }
+    .agent-body ul li {
+      font-size: 12px;
+      color: #444;
+      padding: 5px 0;
+      border-bottom: 1px solid #f0f0f0;
+      display: flex;
+      align-items: flex-start;
+      gap: 7px;
+      line-height: 1.4;
+    }
+    .agent-body ul li:last-child { border-bottom: none; }
+    .agent-body ul li .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 4px;
+    }
+
+    .agent-output {
+      padding: 10px 18px 14px;
+      background: #fafafa;
+      border-top: 1px solid #f0f0f0;
+    }
+    .agent-output .out-label {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #aaa;
+      margin-bottom: 5px;
+    }
+    .output-tag {
+      display: inline-block;
+      border-radius: 20px;
+      padding: 3px 10px;
+      font-size: 10px;
+      font-weight: 600;
+      margin: 2px 2px 0 0;
+      color: #fff;
+    }
+
+    /* ── COLOURS PER AGENT ── */
+    .seo1  .agent-header { background: linear-gradient(135deg, #2563eb, #1d4ed8); }
+    .seo1  .dot  { background: #2563eb; }
+    .seo1  .output-tag { background: #2563eb; }
+
+    .seo2a .agent-header { background: linear-gradient(135deg, #7c3aed, #6d28d9); }
+    .seo2a .dot  { background: #7c3aed; }
+    .seo2a .output-tag { background: #7c3aed; }
+
+    .seo2b .agent-header { background: linear-gradient(135deg, #db2777, #be185d); }
+    .seo2b .dot  { background: #db2777; }
+    .seo2b .output-tag { background: #db2777; }
+
+    .seo3  .agent-header { background: linear-gradient(135deg, #059669, #047857); }
+    .seo3  .dot  { background: #059669; }
+    .seo3  .output-tag { background: #059669; }
+
+    /* ── CONNECTORS BETWEEN AGENTS ── */
+    .h-conn-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0;
+      width: 100%;
+      max-width: 940px;
+      margin: 0 auto;
+    }
+    .h-line {
+      height: 2px;
+      background: #c0c8d8;
+      flex: 1;
+      max-width: 20px;
+    }
+    .h-arrow {
+      width: 0;
+      height: 0;
+      border-top: 6px solid transparent;
+      border-bottom: 6px solid transparent;
+      border-left: 9px solid #c0c8d8;
+    }
+    .h-spacer { width: 220px; }
+
+    /* ── OUTPUTS / DELIVERABLES SECTION ── */
+    .outputs-section {
+      margin: 40px auto 0;
+      max-width: 940px;
+    }
+    .outputs-section h2 {
+      text-align: center;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #999;
+      margin-bottom: 18px;
+    }
+    .outputs-grid {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .output-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 16px 20px;
+      flex: 1;
+      min-width: 180px;
+      max-width: 220px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      border-top: 3px solid;
+    }
+    .output-card.blue  { border-color: #2563eb; }
+    .output-card.purple { border-color: #7c3aed; }
+    .output-card.pink  { border-color: #db2777; }
+    .output-card.green { border-color: #059669; }
+
+    .output-card .oc-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: #333;
+      margin-bottom: 8px;
+    }
+    .output-card .oc-item {
+      font-size: 11px;
+      color: #666;
+      padding: 3px 0;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .output-card .oc-item::before {
+      content: '';
+      display: inline-block;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: currentColor;
+      flex-shrink: 0;
+    }
+    .output-card.blue  .oc-item { color: #2563eb; }
+    .output-card.purple .oc-item { color: #7c3aed; }
+    .output-card.pink  .oc-item { color: #db2777; }
+    .output-card.green .oc-item { color: #059669; }
+    .output-card .oc-title { color: #1a1a2e; }
+
+    /* ── FLOW OVERVIEW ── */
+    .flow-overview {
+      max-width: 940px;
+      margin: 30px auto 0;
+      background: #fff;
+      border-radius: 16px;
+      padding: 24px 30px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    }
+    .flow-overview h2 {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #999;
+      margin-bottom: 16px;
+      text-align: center;
+    }
+    .flow-steps {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .flow-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 0 8px;
+      min-width: 110px;
+    }
+    .step-circle {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 900;
+      color: #fff;
+      margin-bottom: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+    }
+    .flow-step p { font-size: 11px; font-weight: 600; color: #555; line-height: 1.3; }
+    .flow-step span { font-size: 10px; color: #999; margin-top: 2px; }
+    .step-arrow {
+      font-size: 20px;
+      color: #c0c8d8;
+      padding: 0 4px;
+      margin-bottom: 20px;
+    }
+
+    .watermark {
+      text-align: center;
+      margin-top: 36px;
+      font-size: 11px;
+      color: #bbb;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TITLE -->
+  <div class="page-title">
+    <h1>Workspaceco — SEO Agent Workflow</h1>
+    <p>How the 4 SEO Agents collaborate to build, publish, and monitor content</p>
+  </div>
+
+  <!-- TRIGGER -->
+  <div class="trigger-row">
+    <div class="trigger-box">
+      <div class="label">Input</div>
+      <div class="title">SEO Strategy Brief</div>
+      <div class="sub">Target keywords · Audience · Business goals</div>
+    </div>
+  </div>
+
+  <!-- DOWN ARROW -->
+  <div class="v-conn"><div class="line"></div><div class="arrow"></div></div>
+
+  <!-- 4 AGENT CARDS -->
+  <div class="agents-row">
+
+    <!-- SEO 1 -->
+    <div class="agent-card seo1">
+      <div class="agent-header">
+        <div class="agent-badge">Agent</div>
+        <div class="agent-name">SEO 1</div>
+        <div class="agent-role">Research &amp; Strategy</div>
+        <div class="agent-icon">🔍</div>
+      </div>
+      <div class="agent-body">
+        <ul>
+          <li><span class="dot"></span>Keyword research &amp; intent mapping</li>
+          <li><span class="dot"></span>Content briefs with H2 outlines</li>
+          <li><span class="dot"></span>AEO angle per article</li>
+          <li><span class="dot"></span>Competitor gap analysis</li>
+          <li><span class="dot"></span>Sprint planning &amp; topic queue</li>
+        </ul>
+      </div>
+      <div class="agent-output">
+        <div class="out-label">Outputs</div>
+        <span class="output-tag">Sprint Briefs</span>
+        <span class="output-tag">Keyword Map</span>
+      </div>
+    </div>
+
+    <!-- SEO 2-A -->
+    <div class="agent-card seo2a">
+      <div class="agent-header">
+        <div class="agent-badge">Agent</div>
+        <div class="agent-name">SEO 2‑A</div>
+        <div class="agent-role">Content Writing</div>
+        <div class="agent-icon">✍️</div>
+      </div>
+      <div class="agent-body">
+        <ul>
+          <li><span class="dot"></span>Drafts long-form articles from SEO1 briefs</li>
+          <li><span class="dot"></span>Embeds focus keywords &amp; LSI terms</li>
+          <li><span class="dot"></span>Adds FAQ schema questions</li>
+          <li><span class="dot"></span>Writes CTAs &amp; internal links</li>
+          <li><span class="dot"></span>Targets 2,000–2,500 words per article</li>
+        </ul>
+      </div>
+      <div class="agent-output">
+        <div class="out-label">Outputs</div>
+        <span class="output-tag">Draft Articles</span>
+        <span class="output-tag">FAQ Schema</span>
+      </div>
+    </div>
+
+    <!-- SEO 2-B -->
+    <div class="agent-card seo2b">
+      <div class="agent-header">
+        <div class="agent-badge">Agent</div>
+        <div class="agent-name">SEO 2‑B</div>
+        <div class="agent-role">Content Production</div>
+        <div class="agent-icon">🛠️</div>
+      </div>
+      <div class="agent-body">
+        <ul>
+          <li><span class="dot"></span>Rewrites &amp; quality-edits drafts</li>
+          <li><span class="dot"></span>Builds HTML production files</li>
+          <li><span class="dot"></span>Adapts articles into LinkedIn posts</li>
+          <li><span class="dot"></span>On-page SEO: meta titles, descriptions</li>
+          <li><span class="dot"></span>Prepares content for CMS upload</li>
+        </ul>
+      </div>
+      <div class="agent-output">
+        <div class="out-label">Outputs</div>
+        <span class="output-tag">HTML Files</span>
+        <span class="output-tag">LinkedIn Posts</span>
+      </div>
+    </div>
+
+    <!-- SEO 3 -->
+    <div class="agent-card seo3">
+      <div class="agent-header">
+        <div class="agent-badge">Agent</div>
+        <div class="agent-name">SEO 3</div>
+        <div class="agent-role">Monitoring &amp; Reporting</div>
+        <div class="agent-icon">📊</div>
+      </div>
+      <div class="agent-body">
+        <ul>
+          <li><span class="dot"></span>AI citation tracking (ChatGPT, Perplexity, Google AIO)</li>
+          <li><span class="dot"></span>Competitor mention monitoring</li>
+          <li><span class="dot"></span>Monthly baseline reports</li>
+          <li><span class="dot"></span>Ranking &amp; visibility trends</li>
+          <li><span class="dot"></span>Flags gaps back to SEO 1</li>
+        </ul>
+      </div>
+      <div class="agent-output">
+        <div class="out-label">Outputs</div>
+        <span class="output-tag">Citation Report</span>
+        <span class="output-tag">Gap Analysis</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FLOW LOOP SECTION -->
+  <div class="flow-overview">
+    <h2>End-to-End Content Cycle</h2>
+    <div class="flow-steps">
+      <div class="flow-step">
+        <div class="step-circle" style="background:#2563eb;">1</div>
+        <p>SEO 1 writes sprint brief</p>
+        <span>Keyword + outline</span>
+      </div>
+      <div class="step-arrow">→</div>
+      <div class="flow-step">
+        <div class="step-circle" style="background:#7c3aed;">2</div>
+        <p>SEO 2‑A drafts article</p>
+        <span>2,000–2,500 words</span>
+      </div>
+      <div class="step-arrow">→</div>
+      <div class="flow-step">
+        <div class="step-circle" style="background:#db2777;">3</div>
+        <p>SEO 2‑B produces &amp; publishes</p>
+        <span>HTML + LinkedIn</span>
+      </div>
+      <div class="step-arrow">→</div>
+      <div class="flow-step">
+        <div class="step-circle" style="background:#059669;">4</div>
+        <p>SEO 3 monitors citations</p>
+        <span>AI &amp; search tracking</span>
+      </div>
+      <div class="step-arrow">→</div>
+      <div class="flow-step">
+        <div class="step-circle" style="background:#1a1a2e;">↺</div>
+        <p>Gaps fed back to SEO 1</p>
+        <span>Next sprint topics</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- DELIVERABLES GRID -->
+  <div class="outputs-section">
+    <h2>Project Deliverables by Agent</h2>
+    <div class="outputs-grid">
+      <div class="output-card blue">
+        <div class="oc-title">SEO 1 — Strategy</div>
+        <div class="oc-item">sprint-2-briefs.md</div>
+        <div class="oc-item">Keyword maps</div>
+        <div class="oc-item">AEO angle definitions</div>
+        <div class="oc-item">Competitor gap notes</div>
+      </div>
+      <div class="output-card purple">
+        <div class="oc-title">SEO 2‑A — Writing</div>
+        <div class="oc-item">Articles 1–15 (.md)</div>
+        <div class="oc-item">FAQ schema blocks</div>
+        <div class="oc-item">CTA copy</div>
+        <div class="oc-item">Internal link structure</div>
+      </div>
+      <div class="output-card pink">
+        <div class="oc-title">SEO 2‑B — Production</div>
+        <div class="oc-item">article-12-production.html</div>
+        <div class="oc-item">Rewrite versions</div>
+        <div class="oc-item">LinkedIn posts (8+)</div>
+        <div class="oc-item">Meta title &amp; desc</div>
+      </div>
+      <div class="output-card green">
+        <div class="oc-title">SEO 3 — Monitoring</div>
+        <div class="oc-item">AI citation baseline</div>
+        <div class="oc-item">ChatGPT / Perplexity tests</div>
+        <div class="oc-item">Google AIO tracking</div>
+        <div class="oc-item">Monthly reports</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="watermark">Workspaceco Outsourcing · SEO Agent System · Generated April 2026</div>
+
+</body>
+</html>
