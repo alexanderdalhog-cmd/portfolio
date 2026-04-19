@@ -88,8 +88,8 @@
     }
     </script>
 
-    <!-- GoatCounter analytics (privacy-friendly, no cookies). Replace YOUR_CODE after creating account at goatcounter.com -->
-    <script data-goatcounter="https://YOUR_CODE.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+    <!-- GoatCounter analytics (privacy-friendly, no cookies) -->
+    <script data-goatcounter="https://alexanderdalhogjr.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 
     <style>
         /* ============ THEME TOKENS ============ */
@@ -153,6 +153,25 @@
         }
 
         ::selection { background: var(--accent); color: white; }
+
+        /* ============ A11Y ============ */
+        .skip-link {
+            position: absolute; top: -100px; left: 12px; z-index: 100000;
+            background: var(--primary); color: white;
+            padding: 12px 20px; border-radius: 6px;
+            font-weight: 700; text-decoration: none;
+            transition: top 0.2s ease;
+        }
+        .skip-link:focus { top: 12px; outline: 3px solid var(--accent); }
+        :focus-visible {
+            outline: 3px solid var(--accent);
+            outline-offset: 3px; border-radius: 4px;
+        }
+        button:focus-visible, a:focus-visible, input:focus-visible,
+        select:focus-visible, textarea:focus-visible {
+            outline: 3px solid var(--accent);
+            outline-offset: 2px;
+        }
 
         /* ============ SPLASH ============ */
         #splash {
@@ -647,7 +666,24 @@
             border-radius: 8px; overflow: hidden; border: 1px solid var(--border);
             box-shadow: var(--shadow); background: #000;
         }
-        .showcase-video iframe { width: 100%; aspect-ratio: 16/9; display: block; border: none; }
+        .showcase-video {
+            position: relative;
+        }
+        .showcase-video::before {
+            content: ''; position: absolute; inset: 0;
+            background:
+                linear-gradient(110deg, transparent 30%, rgba(255,255,255,0.08) 45%, transparent 60%) 0 0/200% 100%,
+                linear-gradient(135deg, #1a2236, #0f1729);
+            animation: shimmerBg 1.6s linear infinite;
+            z-index: 1; pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+        .showcase-video.loaded::before { opacity: 0; }
+        @keyframes shimmerBg { to { background-position: -200% 0; } }
+        .showcase-video iframe {
+            width: 100%; aspect-ratio: 16/9; display: block; border: none;
+            position: relative; z-index: 2;
+        }
         .showcase-video .showcase-caption { background: var(--bg-elevated); }
 
         .phase-flow { display: flex; align-items: center; flex-wrap: wrap; gap: 4px; margin: 12px 0 6px; }
@@ -1011,21 +1047,24 @@
 </head>
 <body>
 
+<!-- A11Y: skip to main content -->
+<a href="#hero" class="skip-link">Skip to main content</a>
+
 <!-- SPLASH -->
-<div id="splash"><div class="splash-mark">AD</div></div>
+<div id="splash" aria-hidden="true"><div class="splash-mark">AD</div></div>
 
-<!-- CUSTOM CURSOR -->
-<div class="cursor-dot" id="cursorDot"></div>
-<div class="cursor-ring" id="cursorRing"></div>
+<!-- CUSTOM CURSOR (decorative) -->
+<div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+<div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
 
-<!-- SCROLL PROGRESS -->
-<div class="scroll-progress" id="scrollProgress"></div>
+<!-- SCROLL PROGRESS (decorative) -->
+<div class="scroll-progress" id="scrollProgress" aria-hidden="true" role="progressbar"></div>
 
 <!-- NAV -->
 <nav>
     <div class="nav-inner">
         <a href="#hero" class="nav-logo">
-            <span class="logo-mark"><img src="photo.jpg" alt="Alexander Dalhog Jr." onerror="this.outerHTML='AD';"></span>
+            <span class="logo-mark"><img src="photo.webp" alt="Alexander Dalhog Jr." onerror="this.outerHTML='AD';"></span>
             <span>Alexander Dalhog Jr.</span>
         </a>
         <ul class="nav-links" id="navLinks">
@@ -1034,6 +1073,7 @@
             <li><a href="#projects">Projects</a></li>
             <li><a href="#testimonials">Testimonials</a></li>
             <li><a href="#skills">Skills</a></li>
+            <li><a href="for-recruiters.html">For Recruiters</a></li>
             <li><a href="#contact-form">Contact</a></li>
             <li>
                 <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" title="Toggle dark mode">
@@ -1055,12 +1095,12 @@
         <div class="aurora-blob b2"></div>
         <div class="aurora-blob b3"></div>
     </div>
-    <canvas id="particles"></canvas>
+    <canvas id="particles" aria-hidden="true"></canvas>
     <div class="container">
         <div class="hero-photo-wrap">
             <div class="hero-photo-ring"></div>
             <div class="hero-photo">
-                <img src="photo.jpg" alt="Alexander Dalhog Jr." onerror="this.style.display='none';this.parentElement.textContent='AD';">
+                <img src="photo.webp" alt="Alexander Dalhog Jr." onerror="this.style.display='none';this.parentElement.textContent='AD';">
             </div>
             <div class="available-pill">Open to Work</div>
         </div>
@@ -1257,6 +1297,7 @@
                             <div class="showcase-caption">AI Agent Training Pipeline - Live System Demo</div>
                         </div>
                     </div>
+                    <a href="case-study-training-pipeline.html" class="arch-link">&#x1F4D6; Read the full case study &rarr;</a>
                 </div>
                 <div class="project-tech">
                     <span class="tech-tag">Python</span>
@@ -1311,22 +1352,23 @@
                         <div class="showcase-label">System Screenshots</div>
                         <div class="showcase-gallery">
                             <div class="showcase-item" onclick="openLightbox(this)">
-                                <img src="screenshots/eod-cutoff-workflow.png" alt="EOD Daily Cutoff + Escalation N8N Workflow" loading="lazy">
+                                <img src="screenshots/eod-cutoff-workflow.webp" alt="EOD Daily Cutoff + Escalation N8N Workflow" loading="lazy">
                                 <div class="showcase-caption">N8N Workflow: Daily Cutoff + Escalation (Phase 2)</div>
                             </div>
                             <div class="showcase-item" onclick="openLightbox(this)">
-                                <img src="screenshots/eod-morning-workflow.png" alt="EOD Morning Setup + Reminder N8N Workflow" loading="lazy">
+                                <img src="screenshots/eod-morning-workflow.webp" alt="EOD Morning Setup + Reminder N8N Workflow" loading="lazy">
                                 <div class="showcase-caption">N8N Workflow: Morning Setup + Reminder (Phase 1)</div>
                             </div>
                             <div class="showcase-item" onclick="openLightbox(this)">
-                                <img src="screenshots/eod-cutoff-full.png" alt="EOD Daily Cutoff Full Workflow View" loading="lazy">
+                                <img src="screenshots/eod-cutoff-full.webp" alt="EOD Daily Cutoff Full Workflow View" loading="lazy">
                                 <div class="showcase-caption">Full Workflow View: Cutoff + Escalation with Admin Panel</div>
                             </div>
                             <div class="showcase-item" onclick="openLightbox(this)">
-                                <img src="screenshots/eod-dashboard.png" alt="VA EOD Compliance Dashboard Google Sheets" loading="lazy">
+                                <img src="screenshots/eod-dashboard.webp" alt="VA EOD Compliance Dashboard Google Sheets" loading="lazy">
                                 <div class="showcase-caption">Live Compliance Dashboard: On-Time, Late, Missing Tracking</div>
                             </div>
                         </div>
+                        <a href="case-study-eod-compliance.html" class="arch-link">&#x1F4D6; Read the full case study &rarr;</a>
                     </div>
                 </div>
                 <div class="project-tech">
@@ -1483,7 +1525,7 @@
                     <div class="showcase-label">System Screenshot</div>
                     <div class="showcase-gallery">
                         <div class="showcase-item" onclick="openLightbox(this)">
-                            <img src="screenshots/whatsapp-analyzer-hub.png" alt="WSC WhatsApp Analyzer Hub Dashboard" loading="lazy">
+                            <img src="screenshots/whatsapp-analyzer-hub.webp" alt="WSC WhatsApp Analyzer Hub Dashboard" loading="lazy">
                             <div class="showcase-caption">WSC WhatsApp Analyzer Hub - Live Dashboard</div>
                         </div>
                     </div>
@@ -1571,19 +1613,19 @@
                         <div class="showcase-label">App Screenshots</div>
                         <div class="showcase-gallery">
                             <div class="showcase-item" onclick="openLightbox(this)">
-                                <img src="screenshots/replyiq-dashboard.png" alt="ReplyIQ Dashboard" loading="lazy">
+                                <img src="screenshots/replyiq-dashboard.webp" alt="ReplyIQ Dashboard" loading="lazy">
                                 <div class="showcase-caption">Dashboard: Real-time email processing overview</div>
                             </div>
                             <div class="showcase-item" onclick="openLightbox(this)">
-                                <img src="screenshots/replyiq-email-queue.png" alt="ReplyIQ Email Queue" loading="lazy">
+                                <img src="screenshots/replyiq-email-queue.webp" alt="ReplyIQ Email Queue" loading="lazy">
                                 <div class="showcase-caption">Email Queue: AI-drafted replies awaiting approval</div>
                             </div>
                             <div class="showcase-item" onclick="openLightbox(this)">
-                                <img src="screenshots/replyiq-knowledge-base.png" alt="ReplyIQ Knowledge Base" loading="lazy">
+                                <img src="screenshots/replyiq-knowledge-base.webp" alt="ReplyIQ Knowledge Base" loading="lazy">
                                 <div class="showcase-caption">Knowledge Base: SOPs and communication guides</div>
                             </div>
                             <div class="showcase-item" onclick="openLightbox(this)">
-                                <img src="screenshots/replyiq-settings.png" alt="ReplyIQ Settings" loading="lazy">
+                                <img src="screenshots/replyiq-settings.webp" alt="ReplyIQ Settings" loading="lazy">
                                 <div class="showcase-caption">Settings: Gmail, Twilio, and WhatsApp integrations</div>
                             </div>
                         </div>
@@ -1629,7 +1671,7 @@
                 </div>
                 <p class="testimonial-quote">It's been an absolute pleasure working with Alexander Dalhog, a standout leader whose empathetic approach and exceptional communication skills have significantly enriched organizational culture. Alex brings a rare and invaluable blend of passion for human resources and a steadfast belief in the power of a positive growth mindset, which he integrates seamlessly into every facet of his work.</p>
                 <div class="testimonial-author">
-                    <div class="testimonial-avatar"><img src="Amanda.jpg" alt="Amanda McCallister" onerror="this.outerHTML='AM';"></div>
+                    <div class="testimonial-avatar"><img src="Amanda.webp" alt="Amanda McCallister" onerror="this.outerHTML='AM';"></div>
                     <div>
                         <div class="testimonial-name">Amanda McCallister</div>
                         <div class="testimonial-role">EOS Integrator | Business Operations &amp; Growth Consultant</div>
@@ -1648,7 +1690,7 @@
                 </div>
                 <p class="testimonial-quote">Alexander brought an extraordinary spirit to the role &mdash; his positivity and light were infectious, and every interaction left me feeling empowered and inspired. His ability to oversee complex projects, manage cross-functional teams, and implement quality assurance processes ensured deliverables were consistently of the highest standard. His communication and interpersonal skills were unparalleled.</p>
                 <div class="testimonial-author">
-                    <div class="testimonial-avatar"><img src="Phillip.jpg" alt="Phillip Suire" onerror="this.outerHTML='PS';"></div>
+                    <div class="testimonial-avatar"><img src="Phillip.webp" alt="Phillip Suire" onerror="this.outerHTML='PS';"></div>
                     <div>
                         <div class="testimonial-name">Phillip Suire</div>
                         <div class="testimonial-role">Marketing Intelligence, Brand Architecture &amp; Digital Systems</div>
@@ -1667,7 +1709,7 @@
                 </div>
                 <p class="testimonial-quote">Alex joined as Recruitment Manager and quickly grew into something far greater. He now owns our entire team development function and is also our AI and automation lead &mdash; he has built compliance systems, training pipelines, CRM libraries, and multi-agent workflows. Strategic thinking, technical execution, and genuine care for people. Most professionals are strong in one. Alex brings all three. Any business that hires him will feel the impact fast.</p>
                 <div class="testimonial-author">
-                    <div class="testimonial-avatar" style="background:#fff;"><img src="workspaceco-icon.png" alt="Workspaceco Outsourcing" onerror="this.outerHTML='AR';" style="object-fit:contain;padding:4px;"></div>
+                    <div class="testimonial-avatar" style="background:#fff;"><img src="workspaceco-icon.webp" alt="Workspaceco Outsourcing" onerror="this.outerHTML='AR';" style="object-fit:contain;padding:4px;"></div>
                     <div>
                         <div class="testimonial-name">All Round Services</div>
                         <div class="testimonial-role">Workspaceco Outsourcing Employer</div>
@@ -1686,7 +1728,7 @@
                 </div>
                 <p class="testimonial-quote">Alex has been an absolute gem! He built my PH team from CSR, Accountant, SEO Specialists, Website Developers, to PowerBI Developers, and more. He also optimized my company structure, managed payroll, and provided invaluable insights on both business and talent needs. His expertise in HR and operations is truly outstanding &mdash; if you're looking for someone with robust HR knowledge, Alex is your guy.</p>
                 <div class="testimonial-author">
-                    <div class="testimonial-avatar" style="background:#fff;"><img src="Kevin.jpg" alt="West Coast Tree Service" onerror="this.outerHTML='KM';" style="object-fit:contain;padding:4px;"></div>
+                    <div class="testimonial-avatar" style="background:#fff;"><img src="Kevin.webp" alt="West Coast Tree Service" onerror="this.outerHTML='KM';" style="object-fit:contain;padding:4px;"></div>
                     <div>
                         <div class="testimonial-name">Kevin Mellado</div>
                         <div class="testimonial-role">West Coast Tree Services</div>
@@ -2204,6 +2246,10 @@
                 if (iframe.dataset.src) {
                     iframe.src = iframe.dataset.src;
                     iframe.removeAttribute('data-src');
+                    iframe.addEventListener('load', function() {
+                        var wrap = iframe.closest('.showcase-video');
+                        if (wrap) wrap.classList.add('loaded');
+                    });
                 }
                 iframeObserver.unobserve(iframe);
             }

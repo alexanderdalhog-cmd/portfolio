@@ -13,6 +13,24 @@
         <priority>0.9</priority>
     </url>
     <url>
+        <loc>https://alexander-dalhog-portfolio.netlify.app/for-recruiters.html</loc>
+        <lastmod>2026-04-19</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>https://alexander-dalhog-portfolio.netlify.app/case-study-training-pipeline.html</loc>
+        <lastmod>2026-04-19</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://alexander-dalhog-portfolio.netlify.app/case-study-eod-compliance.html</loc>
+        <lastmod>2026-04-19</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
         <loc>https://alexander-dalhog-portfolio.netlify.app/va-ops-agent-diagram.html</loc>
         <lastmod>2026-04-19</lastmod>
         <changefreq>monthly</changefreq>
