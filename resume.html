@@ -47,6 +47,7 @@
             --green-border: rgba(74,222,128,0.3);
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { overflow-x: hidden; }
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             color: var(--text);
@@ -54,6 +55,33 @@
             line-height: 1.55;
             font-size: 13.5px;
             transition: background 0.4s ease, color 0.3s ease;
+            overflow-x: hidden; width: 100%;
+        }
+        img { max-width: 100%; height: auto; }
+
+        /* Mobile-friendly resume */
+        @media (max-width: 860px) {
+            .page {
+                margin: 16px 12px; padding: 24px 22px;
+                max-width: calc(100vw - 24px); min-height: auto;
+                box-shadow: 0 4px 18px rgba(0,0,0,0.12);
+            }
+            .toolbar { padding: 12px 14px; gap: 10px; }
+            .toolbar a, .toolbar button { font-size: 0.78rem; padding: 8px 14px; }
+            .header-with-photo { flex-direction: column; text-align: center; gap: 14px; }
+            .header-with-photo .contact-row { justify-content: center !important; }
+            .resume-photo { width: 78px; height: 78px; font-size: 1.4rem; }
+            .header h1, .header-info h1 { font-size: 1.5rem; }
+            .header .tagline, .header-info .tagline { font-size: 0.84rem; }
+            .contact-row { font-size: 0.74rem; gap: 4px 10px; }
+            .skills-compact { grid-template-columns: 1fr; gap: 8px; }
+            .skills-label { font-weight: 700; margin-top: 6px; }
+            .portfolio-banner { flex-direction: column; gap: 6px; text-align: center; }
+            .p-card { grid-template-columns: 1fr; gap: 10px; }
+            .p-card-links { grid-column: 1; grid-row: auto; }
+            .link-group { flex-direction: row; flex-wrap: wrap; min-width: 0; }
+            .bottom-cta .cta-links { flex-direction: column; gap: 8px; }
+            .p2-header h1 { font-size: 1.25rem; }
         }
         ::selection { background: var(--accent); color: white; }
 

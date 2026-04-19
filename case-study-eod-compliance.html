@@ -30,12 +30,16 @@
             --bg: #0a0e1a; --bg-alt: #131826; --border: #1e293b;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { overflow-x: hidden; }
         body {
             font-family: 'Inter', -apple-system, sans-serif;
             color: var(--text); background: var(--bg);
             line-height: 1.7; font-size: 16px;
             transition: background 0.4s, color 0.3s;
+            overflow-x: hidden; width: 100%;
         }
+        img { max-width: 100%; height: auto; }
+        pre { max-width: 100%; }
         ::selection { background: var(--accent); color: white; }
         a { color: var(--accent); }
         :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
