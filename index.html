@@ -1046,8 +1046,11 @@
                 align-items: stretch;            /* override base align-items:center so children fill width */
                 text-align: center; gap: 28px; padding: 0; width: 100%;
             }
-            .hero-content { width: 100%; max-width: 100%; }
+            .hero-content { width: 100%; max-width: 100%; min-width: 0; }
             .hero-photo-wrap { align-self: center; }    /* keep photo centered even with stretch */
+            .hero h1 { font-size: 1.7rem; line-height: 1.15; letter-spacing: -0.5px; hyphens: auto; }
+            .hero-subtitle { font-size: 0.92rem; padding: 0 4px; hyphens: auto; }
+            .hero-tagline { font-size: 0.66rem; letter-spacing: 0.6px; padding: 5px 10px; line-height: 1.4; }
             .hero h1 { font-size: 2rem; letter-spacing: -1px; }
             .typing-line { font-size: 1.05rem; text-align: center; }
             .hero-subtitle { font-size: 0.95rem; margin-left: auto; margin-right: auto; max-width: 100%; }
@@ -1177,7 +1180,7 @@
                 <span>&#x1F4CD;</span>
                 Development &amp; Experience Manager &middot; AI Automation Builder
             </div>
-            <h1>People Operations<br>meets <span class="gradient-text">AI Engineering.</span></h1>
+            <h1>People Operations<br>meets <span class="gradient-text">AI&nbsp;Engineering.</span></h1>
             <div class="typing-line">
                 <span class="typed" id="typedText"></span><span class="cursor-blink"></span>
             </div>
