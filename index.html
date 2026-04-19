@@ -391,10 +391,20 @@
             min-width: 0;     /* allow flex item to shrink below content min-width */
             max-width: 100%;
         }
-        .hero-content > * { max-width: 100%; }
-        .hero h1, .hero-subtitle, .typing-line {
-            overflow-wrap: break-word;
+        .hero-content > * { max-width: 100%; min-width: 0; }
+        .hero h1, .hero-subtitle, .typing-line, .hero-tagline, .now-building {
+            overflow-wrap: anywhere;
             word-wrap: break-word;
+            min-width: 0;
+        }
+        /* Hard guard: nothing inside hero may exceed its parent on small screens */
+        @media (max-width: 768px) {
+            .hero, .hero * {
+                max-width: 100% !important;
+                min-width: 0 !important;
+            }
+            .hero-photo, .hero-photo-wrap, .hero-photo-ring, .available-pill,
+            .hero-photo img { max-width: none !important; }
         }
         .hero-tagline {
             font-size: 0.82rem; font-weight: 700; color: var(--accent);
