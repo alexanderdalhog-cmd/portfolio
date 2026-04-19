@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>OG Card</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=JetBrains+Mono:wght@600&display=swap" rel="stylesheet">
+<style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+        margin: 0; background: #fff;
+        font-family: 'Inter', sans-serif;
+    }
+    .card {
+        width: 1200px; height: 630px;
+        background: #0f1729;
+        position: relative; overflow: hidden;
+        display: flex; align-items: center;
+        padding: 70px;
+        color: white;
+    }
+    /* Aurora blobs */
+    .blob {
+        position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.5;
+    }
+    .b1 { width: 500px; height: 500px; background: #4299e1; top: -120px; left: -100px; }
+    .b2 { width: 420px; height: 420px; background: #9f7aea; top: 50px; right: -100px; opacity: 0.6; }
+    .b3 { width: 380px; height: 380px; background: #38b2ac; bottom: -120px; left: 35%; opacity: 0.4; }
+
+    /* Grid pattern */
+    .grid {
+        position: absolute; inset: 0;
+        background-image: linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+                          linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+        background-size: 40px 40px;
+    }
+
+    .content { position: relative; z-index: 2; flex: 1; }
+    .photo {
+        width: 200px; height: 200px; border-radius: 50%;
+        margin-right: 60px; flex-shrink: 0;
+        background: linear-gradient(135deg, #4299e1, #9f7aea);
+        border: 4px solid rgba(255,255,255,0.2);
+        position: relative; z-index: 2;
+        overflow: hidden;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 4rem; font-weight: 800;
+        box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+    }
+    .photo img { width: 100%; height: 100%; object-fit: cover; }
+    .pill {
+        display: inline-flex; align-items: center; gap: 8px;
+        background: rgba(96, 165, 250, 0.15);
+        border: 1px solid rgba(96, 165, 250, 0.4);
+        padding: 8px 16px; border-radius: 999px;
+        font-size: 14px; font-weight: 700; color: #93c5fd;
+        letter-spacing: 1.5px; text-transform: uppercase;
+        margin-bottom: 18px;
+    }
+    .pill::before {
+        content: ''; width: 8px; height: 8px; border-radius: 50%;
+        background: #10b981; box-shadow: 0 0 10px #10b981;
+    }
+    h1 {
+        font-size: 64px; font-weight: 900;
+        line-height: 1.05; letter-spacing: -2px;
+        margin-bottom: 14px;
+    }
+    .gradient-text {
+        background: linear-gradient(135deg, #60a5fa, #c084fc);
+        -webkit-background-clip: text; background-clip: text;
+        color: transparent;
+    }
+    .tagline {
+        font-size: 22px; color: rgba(255,255,255,0.85);
+        line-height: 1.4; margin-bottom: 24px; font-weight: 500;
+        max-width: 580px;
+    }
+    .stats {
+        display: flex; gap: 30px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 14px; color: rgba(255,255,255,0.7);
+    }
+    .stat { display: flex; align-items: center; gap: 8px; }
+    .stat strong {
+        color: #60a5fa; font-weight: 600;
+    }
+    .footer-bar {
+        position: absolute; bottom: 30px; left: 70px; right: 70px;
+        display: flex; justify-content: space-between; align-items: center;
+        font-size: 14px; color: rgba(255,255,255,0.5); font-weight: 600;
+        letter-spacing: 0.5px;
+        z-index: 2;
+    }
+    .url { color: #93c5fd; }
+</style>
+</head>
+<body>
+<div class="card">
+    <div class="grid"></div>
+    <div class="blob b1"></div>
+    <div class="blob b2"></div>
+    <div class="blob b3"></div>
+
+    <div class="photo">
+        <img src="photo.jpg" alt="Alexander Dalhog Jr." onerror="this.style.display='none';this.parentElement.textContent='AD';">
+    </div>
+
+    <div class="content">
+        <div class="pill">AI Automation Builder &middot; People Ops Leader</div>
+        <h1>People Operations<br>meets <span class="gradient-text">AI Engineering.</span></h1>
+        <p class="tagline">I build the systems that scale teams &mdash; and the AI agents that run them.</p>
+        <div class="stats">
+            <span class="stat"><strong>70+</strong> VAs</span>
+            <span class="stat"><strong>6</strong> AI Agents</span>
+            <span class="stat"><strong>54</strong> Modules</span>
+            <span class="stat"><strong>15hr&rarr;30min</strong></span>
+        </div>
+    </div>
+
+    <div class="footer-bar">
+        <span>Alexander F. Dalhog Jr.</span>
+        <span class="url">alexander-dalhog-portfolio.netlify.app</span>
+    </div>
+</div>
+</body>
+</html>

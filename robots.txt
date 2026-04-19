@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /og-card.html
+
+Sitemap: https://alexander-dalhog-portfolio.netlify.app/sitemap.xml

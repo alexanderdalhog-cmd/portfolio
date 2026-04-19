@@ -14,13 +14,17 @@
     <meta property="og:url" content="https://alexander-dalhog-portfolio.netlify.app/">
     <meta property="og:title" content="Alexander F. Dalhog Jr. — People Operations × AI Engineering">
     <meta property="og:description" content="I build the systems that scale teams — and the AI agents that run them. 70+ VAs. 6 production AI agents. 15-hour workflows → 30 minutes.">
-    <meta property="og:image" content="https://alexander-dalhog-portfolio.netlify.app/photo.jpg">
+    <meta property="og:image" content="https://alexander-dalhog-portfolio.netlify.app/og-card.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Alexander F. Dalhog Jr. — People Operations meets AI Engineering">
+    <meta property="og:site_name" content="Alexander F. Dalhog Jr. — Portfolio">
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Alexander F. Dalhog Jr. — People Operations × AI Engineering">
     <meta name="twitter:description" content="I build the systems that scale teams — and the AI agents that run them.">
-    <meta name="twitter:image" content="https://alexander-dalhog-portfolio.netlify.app/photo.jpg">
+    <meta name="twitter:image" content="https://alexander-dalhog-portfolio.netlify.app/og-card.png">
 
     <!-- Favicon (inline SVG) -->
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231a365d'/%3E%3Ctext x='50%25' y='50%25' dy='.35em' text-anchor='middle' font-family='Inter,sans-serif' font-weight='800' font-size='28' fill='white'%3EAD%3C/text%3E%3C/svg%3E">
@@ -28,6 +32,64 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+    <!-- Schema.org JSON-LD: Person + WebSite (Google rich results) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "Person",
+                "@id": "https://alexander-dalhog-portfolio.netlify.app/#person",
+                "name": "Alexander F. Dalhog Jr.",
+                "givenName": "Alexander",
+                "familyName": "Dalhog",
+                "jobTitle": "Development & Experience Manager",
+                "description": "Development & Experience Manager and AI Automation Builder who designs production-grade systems with Claude AI, N8N, and Python. Manages 70+ virtual assistants serving Australian businesses.",
+                "image": "https://alexander-dalhog-portfolio.netlify.app/og-card.png",
+                "url": "https://alexander-dalhog-portfolio.netlify.app/",
+                "email": "alex.dalhog@gmail.com",
+                "telephone": "+63-998-490-9379",
+                "address": {
+                    "@type": "PostalAddress",
+                    "addressLocality": "Davao City",
+                    "addressCountry": "PH"
+                },
+                "worksFor": {
+                    "@type": "Organization",
+                    "name": "Workspaceco Outsourcing",
+                    "url": "https://workspaceco.com.au"
+                },
+                "alumniOf": {
+                    "@type": "CollegeOrUniversity",
+                    "name": "University of Mindanao",
+                    "address": "Bolton Street, Davao City, Philippines"
+                },
+                "knowsAbout": [
+                    "AI Automation", "Claude AI", "N8N", "Python", "FastAPI",
+                    "Multi-Agent Systems", "People Operations", "L&D Strategy",
+                    "Talent Acquisition", "Remote Team Management", "Prompt Engineering"
+                ],
+                "sameAs": [
+                    "https://www.linkedin.com/in/alexander-dalhog-jr-b30a12194/",
+                    "https://github.com/alexanderdalhog-cmd"
+                ]
+            },
+            {
+                "@type": "WebSite",
+                "@id": "https://alexander-dalhog-portfolio.netlify.app/#website",
+                "url": "https://alexander-dalhog-portfolio.netlify.app/",
+                "name": "Alexander F. Dalhog Jr. — Portfolio",
+                "description": "People Operations × AI Engineering. Portfolio of Alexander F. Dalhog Jr.",
+                "inLanguage": "en",
+                "publisher": { "@id": "https://alexander-dalhog-portfolio.netlify.app/#person" }
+            }
+        ]
+    }
+    </script>
+
+    <!-- GoatCounter analytics (privacy-friendly, no cookies). Replace YOUR_CODE after creating account at goatcounter.com -->
+    <script data-goatcounter="https://YOUR_CODE.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 
     <style>
         /* ============ THEME TOKENS ============ */
@@ -349,6 +411,35 @@
         .hero-contact a { color: var(--accent); text-decoration: none; transition: color 0.2s; }
         .hero-contact a:hover { color: var(--text); }
         .hero-contact .contact-item { display: inline-flex; align-items: center; gap: 6px; }
+        /* "Why hire me" pitch cards */
+        .pitch-row {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
+            margin-bottom: 24px;
+        }
+        .pitch-card {
+            background: var(--bg-elevated); border: 1px solid var(--border);
+            border-radius: 10px; padding: 14px 16px;
+            display: flex; flex-direction: column; gap: 4px;
+            transition: transform 0.25s ease, border-color 0.25s, box-shadow 0.25s;
+        }
+        .pitch-card:hover {
+            transform: translateY(-3px); border-color: var(--accent);
+            box-shadow: 0 6px 16px var(--accent-glow);
+        }
+        .pitch-card .pitch-icon {
+            font-size: 1.3rem; line-height: 1;
+        }
+        .pitch-card .pitch-head {
+            font-size: 0.84rem; font-weight: 700; color: var(--text);
+            letter-spacing: 0.2px;
+        }
+        .pitch-card .pitch-sub {
+            font-size: 0.74rem; color: var(--text-light); line-height: 1.4;
+        }
+        @media (max-width: 768px) {
+            .pitch-row { grid-template-columns: 1fr; gap: 8px; }
+        }
+
         .hero-buttons { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 28px; }
         .btn {
             display: inline-flex; align-items: center; gap: 8px;
@@ -663,6 +754,90 @@
             display: inline-flex; align-items: center; gap: 4px;
             font-size: 0.7rem; color: var(--text-light); margin-top: 4px;
         }
+        .testimonial-proof {
+            display: inline-flex; align-items: center; gap: 4px;
+            font-size: 0.72rem; font-weight: 600;
+            color: var(--accent); text-decoration: none;
+            margin-top: 6px; padding: 3px 10px;
+            background: var(--accent-light); border-radius: 12px;
+            border: 1px solid var(--accent-glow);
+            transition: all 0.2s;
+        }
+        .testimonial-proof:hover { background: var(--accent); color: white; transform: translateY(-1px); }
+
+        /* CONTACT FORM */
+        .contact-section { background: var(--bg-alt); }
+        .contact-grid {
+            display: grid; grid-template-columns: 1fr 1.3fr; gap: 48px;
+            align-items: start; max-width: 980px; margin: 0 auto;
+        }
+        .contact-side h3 {
+            font-size: 1.15rem; font-weight: 700; color: var(--text); margin-bottom: 10px;
+        }
+        .contact-side p { color: var(--text-secondary); margin-bottom: 18px; font-size: 0.95rem; }
+        .contact-side .contact-meta {
+            background: var(--bg-elevated); border: 1px solid var(--border);
+            border-radius: 12px; padding: 18px;
+        }
+        .contact-side .contact-meta-item {
+            display: flex; align-items: center; gap: 12px;
+            padding: 10px 0; font-size: 0.9rem;
+            border-bottom: 1px solid var(--border);
+        }
+        .contact-side .contact-meta-item:last-child { border-bottom: none; }
+        .contact-side .contact-meta-icon {
+            width: 36px; height: 36px; border-radius: 8px;
+            background: var(--accent-light); display: flex; align-items: center; justify-content: center;
+            font-size: 1rem; flex-shrink: 0;
+        }
+        .contact-side .contact-meta-item a { color: var(--accent); text-decoration: none; font-weight: 600; }
+        .contact-side .contact-meta-item a:hover { text-decoration: underline; }
+
+        .contact-form {
+            background: var(--bg-elevated); border: 1px solid var(--border);
+            border-radius: 14px; padding: 28px;
+            box-shadow: var(--shadow-md);
+        }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+        .form-field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+        .form-field label {
+            font-size: 0.78rem; font-weight: 700; color: var(--text);
+            letter-spacing: 0.3px; text-transform: uppercase;
+        }
+        .form-field input, .form-field select, .form-field textarea {
+            font-family: inherit; font-size: 0.92rem; color: var(--text);
+            background: var(--bg-alt); border: 1px solid var(--border);
+            padding: 11px 14px; border-radius: 8px;
+            transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+            width: 100%;
+        }
+        .form-field input:focus, .form-field select:focus, .form-field textarea:focus {
+            outline: none; border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-glow);
+            background: var(--bg);
+        }
+        .form-field textarea { resize: vertical; min-height: 110px; }
+        .form-honeypot { position: absolute; left: -5000px; top: -5000px; visibility: hidden; }
+        .form-submit {
+            background: linear-gradient(135deg, var(--accent), var(--aurora-2));
+            color: white; border: none; cursor: pointer;
+            padding: 13px 28px; border-radius: 8px;
+            font-size: 0.95rem; font-weight: 700; letter-spacing: 0.3px;
+            box-shadow: 0 4px 14px var(--accent-glow);
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: inline-flex; align-items: center; gap: 8px;
+        }
+        .form-submit:hover { transform: translateY(-2px); box-shadow: 0 8px 20px var(--accent-glow); }
+        .form-success {
+            display: none; padding: 14px 18px; border-radius: 10px;
+            background: rgba(16,185,129,0.1); border: 1px solid #10b981;
+            color: #10b981; font-weight: 600; margin-bottom: 14px;
+        }
+        .form-success.show { display: block; animation: fadeIn 0.4s ease; }
+        @media (max-width: 768px) {
+            .contact-grid { grid-template-columns: 1fr; gap: 28px; }
+            .form-row { grid-template-columns: 1fr; }
+        }
         .testimonial-controls {
             display: flex; justify-content: center; gap: 12px; margin-top: 12px;
         }
@@ -859,7 +1034,7 @@
             <li><a href="#projects">Projects</a></li>
             <li><a href="#testimonials">Testimonials</a></li>
             <li><a href="#skills">Skills</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a href="#contact-form">Contact</a></li>
             <li>
                 <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" title="Toggle dark mode">
                     <span class="icon-moon">&#x1F319;</span>
@@ -903,6 +1078,23 @@
                 <strong>70+ VAs managed. 6 production AI agents shipped. 15-hour workflows compressed to 30 minutes.</strong>
                 One operator. One vision. Real outcomes.
             </p>
+            <div class="pitch-row">
+                <div class="pitch-card">
+                    <span class="pitch-icon">&#x26A1;</span>
+                    <span class="pitch-head">Ship in days, not quarters</span>
+                    <span class="pitch-sub">From idea to production AI system in under a week, repeatedly.</span>
+                </div>
+                <div class="pitch-card">
+                    <span class="pitch-icon">&#x1F3AF;</span>
+                    <span class="pitch-head">People + tech fluency</span>
+                    <span class="pitch-sub">8 yrs HR + self-taught AI engineering. I bridge ops and code.</span>
+                </div>
+                <div class="pitch-card">
+                    <span class="pitch-icon">&#x1F916;</span>
+                    <span class="pitch-head">Production AI, not demos</span>
+                    <span class="pitch-sub">Multi-agent systems running daily for a real 70+ person team.</span>
+                </div>
+            </div>
             <div class="hero-contact">
                 <span class="contact-item">&#x2709; <a href="mailto:alex.dalhog@gmail.com">alex.dalhog@gmail.com</a></span>
                 <span class="contact-item">&#x1F4CD; Davao City, Philippines</span>
@@ -1442,6 +1634,7 @@
                         <div class="testimonial-name">Amanda McCallister</div>
                         <div class="testimonial-role">EOS Integrator | Business Operations &amp; Growth Consultant</div>
                         <div class="testimonial-source">&#x1F517; LinkedIn &middot; Apr 2024 &middot; Managed Alexander directly</div>
+                        <a href="https://www.linkedin.com/in/alexander-dalhog-jr-b30a12194/details/recommendations/" target="_blank" rel="noopener" class="testimonial-proof">View on LinkedIn &nearr;</a>
                     </div>
                 </div>
             </div>
@@ -1460,6 +1653,7 @@
                         <div class="testimonial-name">Phillip Suire</div>
                         <div class="testimonial-role">Marketing Intelligence, Brand Architecture &amp; Digital Systems</div>
                         <div class="testimonial-source">&#x1F517; LinkedIn &middot; Aug 2024 &middot; Managed Alexander directly</div>
+                        <a href="https://www.linkedin.com/in/alexander-dalhog-jr-b30a12194/details/recommendations/" target="_blank" rel="noopener" class="testimonial-proof">View on LinkedIn &nearr;</a>
                     </div>
                 </div>
             </div>
@@ -1477,7 +1671,8 @@
                     <div>
                         <div class="testimonial-name">All Round Services</div>
                         <div class="testimonial-role">Workspaceco Outsourcing Employer</div>
-                        <div class="testimonial-source">&#x1F4BC; OnlineJobs.ph &middot; Apr 2026</div>
+                        <div class="testimonial-source">&#x1F4BC; OnlineJobs.ph &middot; Apr 2026 &middot; Verified Employer Review</div>
+                        <span class="testimonial-proof" style="cursor:default;">&#x2705; Verified on OnlineJobs.ph</span>
                     </div>
                 </div>
             </div>
@@ -1495,7 +1690,8 @@
                     <div>
                         <div class="testimonial-name">Kevin Mellado</div>
                         <div class="testimonial-role">West Coast Tree Services</div>
-                        <div class="testimonial-source">&#x1F4BC; OnlineJobs.ph &middot; Feb 2025</div>
+                        <div class="testimonial-source">&#x1F4BC; OnlineJobs.ph &middot; Feb 2025 &middot; Verified Employer Review</div>
+                        <span class="testimonial-proof" style="cursor:default;">&#x2705; Verified on OnlineJobs.ph</span>
                     </div>
                 </div>
             </div>
@@ -1505,6 +1701,83 @@
         <div class="testimonial-controls">
             <button class="test-btn" onclick="scrollTestimonial(-1)" aria-label="Previous testimonial">&lsaquo;</button>
             <button class="test-btn" onclick="scrollTestimonial(1)" aria-label="Next testimonial">&rsaquo;</button>
+        </div>
+    </div>
+</section>
+
+<!-- CONTACT FORM -->
+<section class="contact-section" id="contact-form">
+    <div class="container">
+        <div class="section-label reveal" style="display:flex;justify-content:center;width:100%;">Get in Touch</div>
+        <h2 class="section-title reveal" style="text-align:center;">Let's Build Something Together</h2>
+        <p class="section-subtitle reveal" style="text-align:center;margin:0 auto 48px;">
+            Hiring, partnering, or just want to talk shop about AI, automation, or scaling people-led teams? Send a message &mdash; I read every one personally.
+        </p>
+
+        <div class="contact-grid">
+            <div class="contact-side reveal">
+                <h3>Prefer another channel?</h3>
+                <p>I'm responsive on email and LinkedIn. For paid work or interviews, the form on the right is fastest.</p>
+                <div class="contact-meta">
+                    <div class="contact-meta-item">
+                        <div class="contact-meta-icon">&#x2709;</div>
+                        <div><strong>Email</strong><br><a href="mailto:alex.dalhog@gmail.com">alex.dalhog@gmail.com</a></div>
+                    </div>
+                    <div class="contact-meta-item">
+                        <div class="contact-meta-icon">&#x1F4C5;</div>
+                        <div><strong>Calendly</strong><br><a href="https://calendly.com/alexdalhog/30min" target="_blank" rel="noopener">Book a 30-min call</a></div>
+                    </div>
+                    <div class="contact-meta-item">
+                        <div class="contact-meta-icon">&#x1F4BC;</div>
+                        <div><strong>LinkedIn</strong><br><a href="https://www.linkedin.com/in/alexander-dalhog-jr-b30a12194/" target="_blank" rel="noopener">Connect on LinkedIn</a></div>
+                    </div>
+                    <div class="contact-meta-item">
+                        <div class="contact-meta-icon">&#x1F4F1;</div>
+                        <div><strong>Phone / WhatsApp</strong><br>(+63) 998 490 9379</div>
+                    </div>
+                </div>
+            </div>
+
+            <form class="contact-form reveal" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" onsubmit="handleContactSubmit(event)">
+                <input type="hidden" name="form-name" value="contact">
+                <div class="form-honeypot">
+                    <label>Don't fill this out: <input name="bot-field"></label>
+                </div>
+                <div class="form-success" id="formSuccess">
+                    &#x2705; Thanks &mdash; your message landed in my inbox. I'll reply within 24 hours.
+                </div>
+                <div class="form-row">
+                    <div class="form-field">
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-field">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-field">
+                        <label for="company">Company / Org</label>
+                        <input type="text" id="company" name="company">
+                    </div>
+                    <div class="form-field">
+                        <label for="reason">Reason</label>
+                        <select id="reason" name="reason">
+                            <option>Hiring / Recruiting</option>
+                            <option>Project / Consulting</option>
+                            <option>Partnership / Collaboration</option>
+                            <option>Just saying hi</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-field">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" required placeholder="Tell me what you're working on, what role you're hiring for, or what challenge you're tackling. The more context, the better I can help."></textarea>
+                </div>
+                <button type="submit" class="form-submit">Send Message &rarr;</button>
+            </form>
         </div>
     </div>
 </section>
@@ -1982,6 +2255,38 @@
             })(i);
         }
     }
+
+    // ============ CONTACT FORM (Netlify Forms AJAX) ============
+    window.handleContactSubmit = function(e) {
+        e.preventDefault();
+        var form = e.target;
+        var data = new FormData(form);
+        var encoded = new URLSearchParams(data).toString();
+        var btn = form.querySelector('.form-submit');
+        var originalText = btn.innerHTML;
+        btn.innerHTML = 'Sending&hellip;';
+        btn.disabled = true;
+        fetch('/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: encoded
+        }).then(function(res) {
+            if (res.ok) {
+                document.getElementById('formSuccess').classList.add('show');
+                form.reset();
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+                setTimeout(function() {
+                    document.getElementById('formSuccess').classList.remove('show');
+                }, 8000);
+            } else {
+                throw new Error('Network response was not ok');
+            }
+        }).catch(function() {
+            btn.innerHTML = '&#x26A0; Try again or email me';
+            btn.disabled = false;
+        });
+    };
 
     // ============ FRIENDLY CONSOLE ============
     console.log('%cHey there 👋', 'font-size:18px;font-weight:700;color:#2b6cb0;');
