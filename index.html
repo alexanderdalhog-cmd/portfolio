@@ -397,11 +397,29 @@
             word-wrap: break-word;
             min-width: 0;
         }
-        /* Hard guard: nothing inside hero may exceed its parent on small screens */
+        /* Hard guard: nothing inside hero may exceed viewport on small screens */
         @media (max-width: 768px) {
-            .hero, .hero * {
+            html, body { max-width: 100vw !important; overflow-x: hidden !important; }
+            .hero {
+                width: 100vw !important;
+                max-width: 100vw !important;
+                box-sizing: border-box !important;
+            }
+            .hero .container,
+            .hero-content {
+                width: 100% !important;
                 max-width: 100% !important;
                 min-width: 0 !important;
+                box-sizing: border-box !important;
+            }
+            .hero h1, .hero-subtitle, .hero-tagline,
+            .now-building, .typing-line, .pitch-row, .pitch-card,
+            .hero-buttons, .hero-contact {
+                max-width: 100% !important;
+                min-width: 0 !important;
+                box-sizing: border-box !important;
+                overflow-wrap: anywhere !important;
+                word-break: normal;
             }
             .hero-photo, .hero-photo-wrap, .hero-photo-ring, .available-pill,
             .hero-photo img { max-width: none !important; }
