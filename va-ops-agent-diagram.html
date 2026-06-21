@@ -4,64 +4,154 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>VA Ops Agent — Swimlane Workflow</title>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-/* ── WSC BRAND TOKENS ── */
-:root {
-  --blue:       #17C9CE;
-  --orange:     #FF6B35;
-  --blue-lt:    #E8FAFB;
-  --orange-lt:  #FFF0EB;
-  --body:       #2D2D2D;
-  --muted:      #888888;
-  --border:     #E5E7EB;
-  --bg:         #F7F9FC;
-  --white:      #FFFFFF;
-  --green:      #22C55E;
-  --green-lt:   #DCFCE7;
-  --purple:     #8B5CF6;
-  --purple-lt:  #F3F0FF;
+/* ── DESIGN SYSTEM TOKENS ── */
+:root{
+  --bg:#07080d;--bg-2:#0b0d15;--surface:#10131f;--surface-2:#161a29;
+  --line:rgba(255,255,255,.08);--line-2:rgba(255,255,255,.14);--fill:rgba(255,255,255,.04);
+  --text:#eaecf5;--muted:#9aa3bd;--dim:#828bab;
+  --nav-bg:rgba(8,9,15,.72);--glass:rgba(11,13,21,.86);
+  --accent:#8b5cff;--accent-2:#22d3ee;--on-accent:#0a0a12;
+  --grad:linear-gradient(110deg,#8b5cff 0%,#6d8bff 38%,#22d3ee 100%);
+  --grad-soft:linear-gradient(110deg,rgba(139,92,255,.16),rgba(34,211,238,.16));
+  --radius:16px;--shadow:0 24px 60px -22px rgba(0,0,0,.7);
+  --font:"Inter",system-ui,-apple-system,sans-serif;--display:"Space Grotesk","Inter",sans-serif;--mono:"JetBrains Mono",ui-monospace,monospace;
+
+  /* semantic accents (theme-aware) */
+  --blue:       #22d3ee;
+  --blue-ink:   #67e8f9;   /* readable blue text on dark */
+  --blue-soft:  rgba(34,211,238,.13);
+  --orange:     #ff7a45;
+  --orange-ink: #ffa177;   /* readable orange text on dark */
+  --orange-soft:rgba(255,122,69,.13);
+  --purple:     #8b5cff;
+  --purple-ink: #b69bff;   /* readable purple text on dark */
+  --purple-soft:rgba(139,92,255,.13);
+  --green:      #34d399;
+  --green-ink:  #6ee7b7;   /* readable green text on dark */
+  --green-soft: rgba(52,211,153,.13);
 }
+:root[data-theme="light"]{
+  --bg:#f6f7fb;--bg-2:#eceff7;--surface:#ffffff;--surface-2:#f3f5fc;
+  --line:rgba(16,19,40,.10);--line-2:rgba(16,19,40,.17);--fill:rgba(16,19,40,.045);
+  --text:#12152a;--muted:#48506c;--dim:#69718e;
+  --nav-bg:rgba(255,255,255,.82);--glass:rgba(255,255,255,.92);
+  --shadow:0 24px 50px -26px rgba(20,24,60,.22);
+
+  --blue:       #0e9aa0;
+  --blue-ink:   #0a7c81;
+  --blue-soft:  #e6fafb;
+  --orange:     #e2581f;
+  --orange-ink: #c44a1a;
+  --orange-soft:#fff0eb;
+  --purple:     #7c4ee8;
+  --purple-ink: #6437c8;
+  --purple-soft:#f3f0ff;
+  --green:      #1ba35f;
+  --green-ink:  #15803d;
+  --green-soft: #e4f9ed;
+}
+@media(prefers-color-scheme:light){:root:not([data-theme="dark"]){
+  --bg:#f6f7fb;--bg-2:#eceff7;--surface:#ffffff;--surface-2:#f3f5fc;
+  --line:rgba(16,19,40,.10);--line-2:rgba(16,19,40,.17);--fill:rgba(16,19,40,.045);
+  --text:#12152a;--muted:#48506c;--dim:#69718e;
+  --nav-bg:rgba(255,255,255,.82);--glass:rgba(255,255,255,.92);
+  --shadow:0 24px 50px -26px rgba(20,24,60,.22);
+
+  --blue:       #0e9aa0;
+  --blue-ink:   #0a7c81;
+  --blue-soft:  #e6fafb;
+  --orange:     #e2581f;
+  --orange-ink: #c44a1a;
+  --orange-soft:#fff0eb;
+  --purple:     #7c4ee8;
+  --purple-ink: #6437c8;
+  --purple-soft:#f3f0ff;
+  --green:      #1ba35f;
+  --green-ink:  #15803d;
+  --green-soft: #e4f9ed;
+}}
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
-  font-family: 'Montserrat', Arial, sans-serif;
+  font-family: var(--font);
   background: var(--bg);
-  color: var(--body);
-  padding: 40px 36px 60px;
+  color: var(--text);
+  padding: 84px 36px 60px;
   min-width: 1180px;
+  transition: background .4s, color .4s;
 }
+h1,h2,h3 { font-family: var(--display); letter-spacing: -.02em; }
+
+/* ── TOP BAR ── */
+.topbar{
+  position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 28px;
+  background: var(--nav-bg);
+  -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--line);
+}
+.topbar-left{ display: flex; align-items: center; gap: 14px; }
+.back-link{
+  font-family: var(--font);
+  font-size: 13px; font-weight: 600;
+  color: var(--text); text-decoration: none;
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 8px 14px; border-radius: 999px;
+  background: var(--fill); border: 1px solid var(--line-2);
+  transition: background .2s, border-color .2s;
+}
+.back-link:hover{ background: var(--grad-soft); border-color: var(--accent); }
+.theme-toggle{
+  background: var(--fill);
+  border: 1px solid var(--line-2);
+  border-radius: 10px;
+  width: 42px; height: 40px;
+  color: var(--text);
+  font-size: 17px;
+  cursor: pointer;
+  display: inline-flex; align-items: center; justify-content: center;
+  transition: background .2s, border-color .2s;
+}
+.theme-toggle:hover{ border-color: var(--accent); }
 
 /* ── HEADER ── */
 .header {
-  background: var(--blue);
-  border-radius: 16px;
+  background: var(--grad);
+  border-radius: var(--radius);
   padding: 28px 40px;
   margin-bottom: 36px;
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   gap: 24px;
+  box-shadow: var(--shadow);
 }
 .wordmark {
+  font-family: var(--mono);
   font-size: 9px;
-  font-weight: 800;
+  font-weight: 600;
   letter-spacing: 3px;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.65);
+  color: rgba(255,255,255,0.75);
   margin-bottom: 8px;
 }
 .header-title {
+  font-family: var(--display);
   font-size: 26px;
-  font-weight: 800;
+  font-weight: 700;
   color: #fff;
   line-height: 1.2;
 }
 .header-sub {
   font-size: 13px;
   font-weight: 500;
-  color: rgba(255,255,255,0.8);
+  color: rgba(255,255,255,0.88);
   margin-top: 6px;
 }
 .header-badges {
@@ -71,8 +161,8 @@ body {
   flex-shrink: 0;
 }
 .badge {
-  background: rgba(255,255,255,0.18);
-  border: 1px solid rgba(255,255,255,0.3);
+  background: rgba(255,255,255,0.16);
+  border: 1px solid rgba(255,255,255,0.32);
   border-radius: 10px;
   padding: 10px 18px;
   text-align: center;
@@ -80,23 +170,24 @@ body {
 }
 .badge-time {
   font-size: 12px;
-  font-weight: 800;
+  font-weight: 700;
   color: #fff;
 }
 .badge-label {
   font-size: 9px;
   font-weight: 500;
-  color: rgba(255,255,255,0.7);
+  color: rgba(255,255,255,0.8);
   margin-top: 3px;
 }
 
 /* ── SECTION LABEL ── */
 .section-label {
+  font-family: var(--mono);
   font-size: 9px;
-  font-weight: 800;
+  font-weight: 600;
   letter-spacing: 2.5px;
   text-transform: uppercase;
-  color: var(--muted);
+  color: var(--dim);
   margin-bottom: 12px;
   margin-top: 32px;
 }
@@ -105,17 +196,18 @@ body {
    SWIMLANE DIAGRAM
 ═══════════════════════════════ */
 .swimlane {
-  background: var(--white);
-  border-radius: 16px;
-  border: 1.5px solid var(--border);
+  background: var(--surface);
+  border-radius: var(--radius);
+  border: 1.5px solid var(--line);
   overflow: hidden;
+  box-shadow: var(--shadow);
 }
 
 /* each row */
 .lane {
   display: grid;
   grid-template-columns: 124px 1fr;
-  border-bottom: 1.5px solid var(--border);
+  border-bottom: 1.5px solid var(--line);
 }
 .lane:last-child { border-bottom: none; }
 
@@ -128,7 +220,7 @@ body {
   justify-content: center;
   text-align: center;
   gap: 6px;
-  border-right: 1.5px solid var(--border);
+  border-right: 1.5px solid var(--line);
 }
 .ll-icon {
   width: 34px;
@@ -141,8 +233,9 @@ body {
   flex-shrink: 0;
 }
 .ll-name {
+  font-family: var(--mono);
   font-size: 9px;
-  font-weight: 800;
+  font-weight: 600;
   letter-spacing: 1.5px;
   text-transform: uppercase;
   line-height: 1.3;
@@ -155,25 +248,25 @@ body {
 }
 
 /* lane colour themes */
-.lt-trigger .lane-label  { background: #F8F9FA; }
-.lt-trigger .ll-icon     { background: #EAECEF; }
-.lt-trigger .ll-name     { color: var(--body); }
+.lt-trigger .lane-label  { background: var(--fill); }
+.lt-trigger .ll-icon     { background: var(--surface-2); border: 1px solid var(--line-2); }
+.lt-trigger .ll-name     { color: var(--text); }
 
-.lt-p1 .lane-label { background: var(--blue-lt); }
+.lt-p1 .lane-label { background: var(--blue-soft); }
 .lt-p1 .ll-icon    { background: var(--blue); color: #fff; }
-.lt-p1 .ll-name    { color: #0A9499; }
+.lt-p1 .ll-name    { color: var(--blue-ink); }
 
-.lt-p2 .lane-label { background: var(--orange-lt); }
+.lt-p2 .lane-label { background: var(--orange-soft); }
 .lt-p2 .ll-icon    { background: var(--orange); color: #fff; }
-.lt-p2 .ll-name    { color: #C44A1A; }
+.lt-p2 .ll-name    { color: var(--orange-ink); }
 
-.lt-state .lane-label { background: var(--purple-lt); }
+.lt-state .lane-label { background: var(--purple-soft); }
 .lt-state .ll-icon    { background: var(--purple); color: #fff; }
-.lt-state .ll-name    { color: #6D3FD6; }
+.lt-state .ll-name    { color: var(--purple-ink); }
 
-.lt-tools .lane-label { background: var(--green-lt); }
+.lt-tools .lane-label { background: var(--green-soft); }
 .lt-tools .ll-icon    { background: var(--green); color: #fff; }
-.lt-tools .ll-name    { color: #16A34A; }
+.lt-tools .ll-name    { color: var(--green-ink); }
 
 /* lane content column */
 .lane-content {
@@ -188,7 +281,7 @@ body {
 /* ── CARDS ── */
 .card {
   border-radius: 12px;
-  border: 1.5px solid var(--border);
+  border: 1.5px solid var(--line);
   padding: 13px 15px;
   min-width: 155px;
   max-width: 195px;
@@ -198,8 +291,9 @@ body {
   gap: 0;
 }
 .c-step {
+  font-family: var(--mono);
   font-size: 7.5px;
-  font-weight: 800;
+  font-weight: 600;
   letter-spacing: 1.5px;
   text-transform: uppercase;
   margin-bottom: 4px;
@@ -209,6 +303,7 @@ body {
   font-weight: 700;
   line-height: 1.3;
   margin-bottom: 7px;
+  color: var(--text);
 }
 .c-detail {
   font-size: 9.5px;
@@ -219,8 +314,9 @@ body {
 }
 .c-tag {
   display: inline-block;
+  font-family: var(--mono);
   font-size: 7.5px;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: 0.3px;
   padding: 3px 8px;
   border-radius: 20px;
@@ -229,24 +325,24 @@ body {
 }
 
 /* card theme: blue */
-.cb { border-color: var(--blue); background: var(--blue-lt); }
-.cb .c-step  { color: #0A9499; }
+.cb { border-color: var(--blue); background: var(--blue-soft); }
+.cb .c-step  { color: var(--blue-ink); }
 .cb .c-tag   { background: var(--blue); color: #fff; }
 
 /* card theme: orange */
-.co { border-color: var(--orange); background: var(--orange-lt); }
-.co .c-step  { color: #C44A1A; }
+.co { border-color: var(--orange); background: var(--orange-soft); }
+.co .c-step  { color: var(--orange-ink); }
 .co .c-tag   { background: var(--orange); color: #fff; }
 
 /* card theme: purple */
-.cp { border-color: var(--purple); background: var(--purple-lt); }
-.cp .c-step  { color: #6D3FD6; }
+.cp { border-color: var(--purple); background: var(--purple-soft); }
+.cp .c-step  { color: var(--purple-ink); }
 .cp .c-tag   { background: var(--purple); color: #fff; }
 
 /* card theme: neutral */
-.cn { border-color: var(--border); background: var(--white); }
+.cn { border-color: var(--line-2); background: var(--surface-2); }
 .cn .c-step  { color: var(--muted); }
-.cn .c-tag   { background: var(--border); color: var(--body); }
+.cn .c-tag   { background: var(--fill); color: var(--text); }
 
 /* ── ARROW ── */
 .arr {
@@ -256,7 +352,7 @@ body {
   font-size: 18px;
   font-weight: 700;
   padding: 0 2px;
-  color: var(--border);
+  color: var(--line-2);
   margin-top: -6px;
 }
 .arr-b { color: var(--blue); }
@@ -267,8 +363,9 @@ body {
   display: flex;
   align-items: center;
   gap: 10px;
-  background: var(--body);
-  color: #fff;
+  background: var(--surface-2);
+  border: 1px solid var(--line-2);
+  color: var(--text);
   border-radius: 11px;
   padding: 11px 18px;
   font-size: 11px;
@@ -280,7 +377,8 @@ body {
   width: 24px;
   height: 24px;
   border-radius: 6px;
-  background: rgba(255,255,255,0.15);
+  background: var(--grad-soft);
+  border: 1px solid var(--line-2);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -299,8 +397,8 @@ body {
   display: flex;
   align-items: center;
   gap: 12px;
-  border: 1.5px solid #BBF7D0;
-  background: var(--green-lt);
+  border: 1.5px solid var(--green);
+  background: var(--green-soft);
   border-radius: 11px;
   padding: 11px 16px;
   flex-shrink: 0;
@@ -321,7 +419,7 @@ body {
 .tc-name {
   font-size: 11px;
   font-weight: 700;
-  color: var(--body);
+  color: var(--text);
 }
 .tc-desc {
   font-size: 9px;
@@ -338,18 +436,20 @@ body {
    PIPELINE FLOW
 ═══════════════════════════════ */
 .pipeline {
-  background: var(--white);
-  border-radius: 16px;
-  border: 1.5px solid var(--border);
+  background: var(--surface);
+  border-radius: var(--radius);
+  border: 1.5px solid var(--line);
   padding: 28px 32px 30px;
   margin-top: 24px;
+  box-shadow: var(--shadow);
 }
 .pipeline-title {
+  font-family: var(--mono);
   font-size: 9px;
-  font-weight: 800;
+  font-weight: 600;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: var(--muted);
+  color: var(--dim);
   margin-bottom: 24px;
 }
 .pipeline-row {
@@ -373,7 +473,7 @@ body {
   align-items: center;
   justify-content: center;
   font-size: 16px;
-  font-weight: 800;
+  font-weight: 700;
   color: #fff;
   margin-bottom: 10px;
   flex-shrink: 0;
@@ -381,7 +481,7 @@ body {
 .ps-label {
   font-size: 10px;
   font-weight: 700;
-  color: var(--body);
+  color: var(--text);
   line-height: 1.4;
 }
 .ps-sub {
@@ -403,7 +503,7 @@ body {
   height: 2px;
   border-radius: 2px;
 }
-.pc-neutral { background: var(--border); }
+.pc-neutral { background: var(--line-2); }
 .pc-blue    { background: var(--blue); }
 .pc-orange  { background: var(--orange); }
 .pc-green   { background: var(--green); }
@@ -412,18 +512,20 @@ body {
    DELIVERABLES GRID
 ═══════════════════════════════ */
 .del-wrap {
-  background: var(--white);
-  border-radius: 16px;
-  border: 1.5px solid var(--border);
+  background: var(--surface);
+  border-radius: var(--radius);
+  border: 1.5px solid var(--line);
   padding: 28px 32px;
   margin-top: 24px;
+  box-shadow: var(--shadow);
 }
 .del-title {
+  font-family: var(--mono);
   font-size: 9px;
-  font-weight: 800;
+  font-weight: 600;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: var(--muted);
+  color: var(--dim);
   margin-bottom: 20px;
 }
 .del-table {
@@ -431,27 +533,29 @@ body {
   border-collapse: collapse;
 }
 .del-table th {
+  font-family: var(--mono);
   font-size: 9.5px;
-  font-weight: 800;
+  font-weight: 600;
   letter-spacing: 1px;
   text-transform: uppercase;
   padding: 10px 18px;
   text-align: left;
-  border-bottom: 2px solid var(--border);
+  border-bottom: 2px solid var(--line-2);
   vertical-align: middle;
 }
-.th-out  { color: var(--muted); width: 50%; }
-.th-p1   { color: #0A9499; background: var(--blue-lt); text-align: center; width: 25%; }
-.th-p2   { color: #C44A1A; background: var(--orange-lt); text-align: center; width: 25%; }
+.th-out  { color: var(--dim); width: 50%; }
+.th-p1   { color: var(--blue-ink); background: var(--blue-soft); text-align: center; width: 25%; }
+.th-p2   { color: var(--orange-ink); background: var(--orange-soft); text-align: center; width: 25%; }
 .del-table td {
   font-size: 11px;
   font-weight: 500;
   padding: 10px 18px;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--line);
   vertical-align: middle;
+  color: var(--text);
 }
 .del-table tr:last-child td { border-bottom: none; }
-.td-out { font-weight: 700; font-size: 11px; }
+.td-out { font-weight: 700; font-size: 11px; color: var(--text); }
 .check-cell { text-align: center; }
 .chk {
   width: 24px;
@@ -471,7 +575,7 @@ body {
   color: #fff;
   font-size: 10px;
 }
-.chk-x { background: var(--bg); border: 1.5px solid var(--border); color: transparent; }
+.chk-x { background: var(--fill); border: 1.5px solid var(--line-2); color: transparent; }
 
 /* ── FOOTER ── */
 .footer {
@@ -479,16 +583,17 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  font-family: var(--mono);
   font-size: 8.5px;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: 1.5px;
   text-transform: uppercase;
-  color: var(--muted);
+  color: var(--dim);
 }
 .dot {
   width: 3px;
   height: 3px;
-  background: var(--muted);
+  background: var(--dim);
   border-radius: 50%;
   display: inline-block;
   margin: 0 7px;
@@ -497,6 +602,14 @@ body {
 </style>
 </head>
 <body>
+
+<!-- ═══ TOP BAR ═══ -->
+<div class="topbar">
+  <div class="topbar-left">
+    <a class="back-link" href="index.html">&larr; Back to portfolio</a>
+  </div>
+  <button id="themeToggle" class="theme-toggle" aria-label="Toggle light/dark theme">&#9728;</button>
+</div>
 
 <!-- ═══ HEADER ═══ -->
 <div class="header">
@@ -555,7 +668,7 @@ body {
   <div class="lane lt-p1">
     <div class="lane-label">
       <div class="ll-icon">🌅</div>
-      <div class="ll-name" style="color:#0A9499;">Phase 1</div>
+      <div class="ll-name">Phase 1</div>
       <div class="ll-sub">Morning<br>Agent</div>
     </div>
     <div class="lane-content">
@@ -610,7 +723,7 @@ body {
   <div class="lane lt-p2">
     <div class="lane-label">
       <div class="ll-icon">🌆</div>
-      <div class="ll-name" style="color:#C44A1A;">Phase 2</div>
+      <div class="ll-name">Phase 2</div>
       <div class="ll-sub">Afternoon<br>Agent</div>
     </div>
     <div class="lane-content">
@@ -692,11 +805,11 @@ body {
         <div class="c-step">.va-reminders-state.json</div>
         <div class="c-title">Morning &amp; Afternoon State</div>
         <div class="c-detail" style="line-height:1.85;">
-          <strong style="color:var(--purple);">reminders_sent</strong> &mdash; event IDs confirmed sent<br>
-          <strong style="color:var(--purple);">rescheduled</strong> &mdash; successfully rescheduled IDs<br>
-          <strong style="color:var(--purple);">notified_declines</strong> &mdash; decline notification IDs<br>
-          <strong style="color:var(--purple);">notified_noshow</strong> &mdash; no-show notification IDs<br>
-          <strong style="color:var(--purple);">last_run</strong> &mdash; ISO 8601 timestamp
+          <strong style="color:var(--purple-ink);">reminders_sent</strong> &mdash; event IDs confirmed sent<br>
+          <strong style="color:var(--purple-ink);">rescheduled</strong> &mdash; successfully rescheduled IDs<br>
+          <strong style="color:var(--purple-ink);">notified_declines</strong> &mdash; decline notification IDs<br>
+          <strong style="color:var(--purple-ink);">notified_noshow</strong> &mdash; no-show notification IDs<br>
+          <strong style="color:var(--purple-ink);">last_run</strong> &mdash; ISO 8601 timestamp
         </div>
         <div class="c-tag">Shared across Phase 1 + Phase 2</div>
       </div>
@@ -705,9 +818,9 @@ body {
         <div class="c-step">.va-checkin-processed.json</div>
         <div class="c-title">Fathom Processing State</div>
         <div class="c-detail" style="line-height:1.85;">
-          <strong style="color:var(--purple);">processed_recordings</strong> &mdash; Fathom meeting IDs<br>
-          <strong style="color:var(--purple);">last_checked</strong> &mdash; last poll UTC timestamp<br>
-          <strong style="color:var(--purple);">failed_recordings</strong> &mdash; error retry tracking<br>
+          <strong style="color:var(--purple-ink);">processed_recordings</strong> &mdash; Fathom meeting IDs<br>
+          <strong style="color:var(--purple-ink);">last_checked</strong> &mdash; last poll UTC timestamp<br>
+          <strong style="color:var(--purple-ink);">failed_recordings</strong> &mdash; error retry tracking<br>
           <br>
           Initialised automatically on first Phase 2 run
         </div>
@@ -716,9 +829,9 @@ body {
 
       <div class="spacer"></div>
 
-      <div style="background:var(--purple-lt);border:1.5px solid var(--purple);border-radius:11px;padding:14px 18px;flex-shrink:0;max-width:195px;">
-        <div style="font-size:8.5px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--purple);margin-bottom:8px;">Duplicate Prevention</div>
-        <div style="font-size:10px;font-weight:500;color:var(--body);line-height:1.7;">
+      <div style="background:var(--purple-soft);border:1.5px solid var(--purple);border-radius:11px;padding:14px 18px;flex-shrink:0;max-width:195px;">
+        <div style="font-family:var(--mono);font-size:8.5px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--purple-ink);margin-bottom:8px;">Duplicate Prevention</div>
+        <div style="font-size:10px;font-weight:500;color:var(--text);line-height:1.7;">
           Both phases check state<br>
           before every action.<br>
           No duplicate emails,<br>
@@ -772,7 +885,7 @@ body {
 
       <div class="spacer"></div>
 
-      <div style="font-size:9px;font-weight:600;color:#16A34A;text-align:right;padding-right:8px;white-space:nowrap;line-height:1.8;">
+      <div style="font-size:9px;font-weight:600;color:var(--green-ink);text-align:right;padding-right:8px;white-space:nowrap;line-height:1.8;">
         All connected via<br>Cowork MCP layer
       </div>
 
@@ -792,7 +905,7 @@ body {
   <div class="pipeline-row">
 
     <div class="ps">
-      <div class="ps-circle" style="background:var(--body);">1</div>
+      <div class="ps-circle" style="background:var(--dim);">1</div>
       <div class="ps-label">Scheduled<br>Trigger</div>
       <div class="ps-sub">CoWork fires<br>9 AM or 1 PM</div>
     </div>
@@ -922,6 +1035,12 @@ body {
   <span>WORKSPACECO. &mdash; Internal Systems Documentation</span>
   <span>VA Ops Agent v1.0<span class="dot"></span>Swimlane Workflow<span class="dot"></span>Confidential</span>
 </div>
+
+<script>(function(){var s=localStorage.getItem("theme");if(s==="light"||s==="dark")document.documentElement.setAttribute("data-theme",s);})();
+var _t=document.getElementById("themeToggle");
+function _ct(){return document.documentElement.getAttribute("data-theme")||((window.matchMedia&&matchMedia("(prefers-color-scheme:light)").matches)?"light":"dark");}
+function _si(){if(_t)_t.innerHTML=(_ct()==="light")?"☽":"☀";}
+_si();if(_t)_t.addEventListener("click",function(){var n=_ct()==="light"?"dark":"light";document.documentElement.setAttribute("data-theme",n);localStorage.setItem("theme",n);_si();});</script>
 
 </body>
 </html>

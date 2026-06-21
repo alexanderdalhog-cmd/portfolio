@@ -4,15 +4,79 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>WSC SEO Agent Workflow</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
+    :root{
+      --bg:#07080d;--bg-2:#0b0d15;--surface:#10131f;--surface-2:#161a29;
+      --line:rgba(255,255,255,.08);--line-2:rgba(255,255,255,.14);--fill:rgba(255,255,255,.04);
+      --text:#eaecf5;--muted:#9aa3bd;--dim:#828bab;
+      --nav-bg:rgba(8,9,15,.72);--glass:rgba(11,13,21,.86);
+      --accent:#8b5cff;--accent-2:#22d3ee;--on-accent:#0a0a12;
+      --grad:linear-gradient(110deg,#8b5cff 0%,#6d8bff 38%,#22d3ee 100%);
+      --grad-soft:linear-gradient(110deg,rgba(139,92,255,.16),rgba(34,211,238,.16));
+      --radius:16px;--shadow:0 24px 60px -22px rgba(0,0,0,.7);
+      --font:"Inter",system-ui,-apple-system,sans-serif;--display:"Space Grotesk","Inter",sans-serif;--mono:"JetBrains Mono",ui-monospace,monospace;
+      /* agent hues (theme-stable, used inside cards on their own header bgs) */
+      --c-blue:#3b82f6;--c-blue-2:#2563eb;
+      --c-purple:#8b5cff;--c-purple-2:#7c3aed;
+      --c-pink:#ec4899;--c-pink-2:#db2777;
+      --c-green:#10b981;--c-green-2:#059669;
+    }
+    :root[data-theme="light"]{
+      --bg:#f6f7fb;--bg-2:#eceff7;--surface:#ffffff;--surface-2:#f3f5fc;
+      --line:rgba(16,19,40,.10);--line-2:rgba(16,19,40,.17);--fill:rgba(16,19,40,.045);
+      --text:#12152a;--muted:#48506c;--dim:#69718e;
+      --nav-bg:rgba(255,255,255,.82);--glass:rgba(255,255,255,.92);
+      --shadow:0 24px 50px -26px rgba(20,24,60,.22);
+    }
+    @media(prefers-color-scheme:light){:root:not([data-theme="dark"]){
+      --bg:#f6f7fb;--bg-2:#eceff7;--surface:#ffffff;--surface-2:#f3f5fc;
+      --line:rgba(16,19,40,.10);--line-2:rgba(16,19,40,.17);--fill:rgba(16,19,40,.045);
+      --text:#12152a;--muted:#48506c;--dim:#69718e;
+      --nav-bg:rgba(255,255,255,.82);--glass:rgba(255,255,255,.92);
+      --shadow:0 24px 50px -26px rgba(20,24,60,.22);
+    }}
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: 'Segoe UI', Arial, sans-serif;
-      background: #f0f4f8;
-      padding: 40px 20px;
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      padding: 88px 20px 40px;
       min-height: 100vh;
+      transition: background .4s, color .4s;
     }
+    h1,h2,h3{ font-family: var(--display); letter-spacing:-.02em; }
+
+    /* ── TOP BAR ── */
+    .topbar{
+      position: fixed; top:0; left:0; right:0; z-index:50;
+      display:flex; align-items:center; justify-content:space-between;
+      padding: 12px 20px;
+      background: var(--nav-bg);
+      -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--line);
+    }
+    .back-link{
+      display:inline-flex; align-items:center; gap:8px;
+      font-family: var(--font); font-size: 14px; font-weight:600;
+      color: var(--text); text-decoration:none;
+      padding: 8px 14px; border-radius: 999px;
+      background: var(--fill); border:1px solid var(--line-2);
+      transition: border-color .2s, background .2s;
+    }
+    .back-link:hover{ border-color: var(--accent); }
+    .theme-toggle{
+      background: var(--fill); border:1px solid var(--line-2);
+      border-radius:10px; width:42px; height:40px;
+      color: var(--text); cursor:pointer; font-size:16px;
+      display:inline-flex; align-items:center; justify-content:center;
+      transition: border-color .2s;
+    }
+    .theme-toggle:hover{ border-color: var(--accent); }
 
     .page-title {
       text-align: center;
@@ -20,13 +84,14 @@
     }
     .page-title h1 {
       font-size: 28px;
-      font-weight: 800;
-      color: #1a1a2e;
-      letter-spacing: -0.5px;
+      font-weight: 700;
+      letter-spacing: -.02em;
+      background: var(--grad);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
     }
     .page-title p {
       font-size: 14px;
-      color: #666;
+      color: var(--muted);
       margin-top: 6px;
     }
 
@@ -37,17 +102,17 @@
       margin: 30px 0 0;
     }
     .trigger-box {
-      background: #1a1a2e;
-      color: #fff;
+      background: var(--grad);
+      color: var(--on-accent);
       border-radius: 14px;
       padding: 18px 40px;
       text-align: center;
       min-width: 260px;
-      box-shadow: 0 4px 20px rgba(26,26,46,0.25);
+      box-shadow: var(--shadow);
     }
-    .trigger-box .label { font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; opacity: 0.6; }
-    .trigger-box .title { font-size: 18px; font-weight: 700; margin-top: 4px; }
-    .trigger-box .sub { font-size: 12px; opacity: 0.75; margin-top: 4px; }
+    .trigger-box .label { font-family: var(--mono); font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; opacity: 0.7; }
+    .trigger-box .title { font-family: var(--display); font-size: 18px; font-weight: 700; margin-top: 4px; }
+    .trigger-box .sub { font-size: 12px; opacity: 0.8; margin-top: 4px; }
 
     /* ── VERTICAL CONNECTOR ── */
     .v-conn {
@@ -60,7 +125,7 @@
     }
     .v-conn .line {
       width: 2px;
-      background: #c0c8d8;
+      background: var(--line-2);
       flex: 1;
     }
     .v-conn .arrow {
@@ -68,7 +133,7 @@
       height: 0;
       border-left: 7px solid transparent;
       border-right: 7px solid transparent;
-      border-top: 10px solid #c0c8d8;
+      border-top: 10px solid var(--line-2);
     }
 
     /* ── AGENTS ROW ── */
@@ -85,7 +150,9 @@
       border-radius: 16px;
       padding: 0;
       width: 220px;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+      background: var(--surface);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
       overflow: hidden;
       position: relative;
       transition: transform 0.2s;
@@ -98,15 +165,17 @@
       position: relative;
     }
     .agent-badge {
+      font-family: var(--mono);
       font-size: 10px;
-      font-weight: 700;
+      font-weight: 600;
       letter-spacing: 1.5px;
       text-transform: uppercase;
-      opacity: 0.8;
+      opacity: 0.85;
     }
     .agent-name {
+      font-family: var(--display);
       font-size: 22px;
-      font-weight: 900;
+      font-weight: 700;
       line-height: 1;
       margin-top: 4px;
     }
@@ -114,18 +183,18 @@
       font-size: 12px;
       font-weight: 600;
       margin-top: 4px;
-      opacity: 0.9;
+      opacity: 0.95;
     }
     .agent-icon {
       position: absolute;
       top: 14px;
       right: 14px;
       font-size: 28px;
-      opacity: 0.35;
+      opacity: 0.45;
     }
 
     .agent-body {
-      background: #fff;
+      background: var(--surface);
       padding: 14px 18px 16px;
     }
     .agent-body ul {
@@ -134,9 +203,9 @@
     }
     .agent-body ul li {
       font-size: 12px;
-      color: #444;
+      color: var(--muted);
       padding: 5px 0;
-      border-bottom: 1px solid #f0f0f0;
+      border-bottom: 1px solid var(--line);
       display: flex;
       align-items: flex-start;
       gap: 7px;
@@ -153,15 +222,16 @@
 
     .agent-output {
       padding: 10px 18px 14px;
-      background: #fafafa;
-      border-top: 1px solid #f0f0f0;
+      background: var(--surface-2);
+      border-top: 1px solid var(--line);
     }
     .agent-output .out-label {
+      font-family: var(--mono);
       font-size: 9px;
-      font-weight: 700;
+      font-weight: 600;
       letter-spacing: 1.5px;
       text-transform: uppercase;
-      color: #aaa;
+      color: var(--dim);
       margin-bottom: 5px;
     }
     .output-tag {
@@ -175,21 +245,21 @@
     }
 
     /* ── COLOURS PER AGENT ── */
-    .seo1  .agent-header { background: linear-gradient(135deg, #2563eb, #1d4ed8); }
-    .seo1  .dot  { background: #2563eb; }
-    .seo1  .output-tag { background: #2563eb; }
+    .seo1  .agent-header { background: linear-gradient(135deg, var(--c-blue), var(--c-blue-2)); }
+    .seo1  .dot  { background: var(--c-blue-2); }
+    .seo1  .output-tag { background: var(--c-blue-2); }
 
-    .seo2a .agent-header { background: linear-gradient(135deg, #7c3aed, #6d28d9); }
-    .seo2a .dot  { background: #7c3aed; }
-    .seo2a .output-tag { background: #7c3aed; }
+    .seo2a .agent-header { background: linear-gradient(135deg, var(--c-purple), var(--c-purple-2)); }
+    .seo2a .dot  { background: var(--c-purple-2); }
+    .seo2a .output-tag { background: var(--c-purple-2); }
 
-    .seo2b .agent-header { background: linear-gradient(135deg, #db2777, #be185d); }
-    .seo2b .dot  { background: #db2777; }
-    .seo2b .output-tag { background: #db2777; }
+    .seo2b .agent-header { background: linear-gradient(135deg, var(--c-pink), var(--c-pink-2)); }
+    .seo2b .dot  { background: var(--c-pink-2); }
+    .seo2b .output-tag { background: var(--c-pink-2); }
 
-    .seo3  .agent-header { background: linear-gradient(135deg, #059669, #047857); }
-    .seo3  .dot  { background: #059669; }
-    .seo3  .output-tag { background: #059669; }
+    .seo3  .agent-header { background: linear-gradient(135deg, var(--c-green), var(--c-green-2)); }
+    .seo3  .dot  { background: var(--c-green-2); }
+    .seo3  .output-tag { background: var(--c-green-2); }
 
     /* ── CONNECTORS BETWEEN AGENTS ── */
     .h-conn-row {
@@ -203,7 +273,7 @@
     }
     .h-line {
       height: 2px;
-      background: #c0c8d8;
+      background: var(--line-2);
       flex: 1;
       max-width: 20px;
     }
@@ -212,7 +282,7 @@
       height: 0;
       border-top: 6px solid transparent;
       border-bottom: 6px solid transparent;
-      border-left: 9px solid #c0c8d8;
+      border-left: 9px solid var(--line-2);
     }
     .h-spacer { width: 220px; }
 
@@ -223,11 +293,12 @@
     }
     .outputs-section h2 {
       text-align: center;
+      font-family: var(--mono);
       font-size: 13px;
-      font-weight: 700;
+      font-weight: 600;
       letter-spacing: 2px;
       text-transform: uppercase;
-      color: #999;
+      color: var(--dim);
       margin-bottom: 18px;
     }
     .outputs-grid {
@@ -237,29 +308,32 @@
       justify-content: center;
     }
     .output-card {
-      background: #fff;
+      background: var(--surface);
+      border: 1px solid var(--line);
       border-radius: 12px;
       padding: 16px 20px;
       flex: 1;
       min-width: 180px;
       max-width: 220px;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      box-shadow: var(--shadow);
       border-top: 3px solid;
     }
-    .output-card.blue  { border-color: #2563eb; }
-    .output-card.purple { border-color: #7c3aed; }
-    .output-card.pink  { border-color: #db2777; }
-    .output-card.green { border-color: #059669; }
+    .output-card.blue  { border-top-color: var(--c-blue-2); }
+    .output-card.purple { border-top-color: var(--c-purple-2); }
+    .output-card.pink  { border-top-color: var(--c-pink-2); }
+    .output-card.green { border-top-color: var(--c-green-2); }
 
     .output-card .oc-title {
+      font-family: var(--display);
       font-size: 12px;
       font-weight: 700;
-      color: #333;
+      color: var(--text);
       margin-bottom: 8px;
     }
     .output-card .oc-item {
+      font-family: var(--mono);
       font-size: 11px;
-      color: #666;
+      color: var(--muted);
       padding: 3px 0;
       display: flex;
       align-items: center;
@@ -271,30 +345,31 @@
       width: 4px;
       height: 4px;
       border-radius: 50%;
-      background: currentColor;
+      background: var(--marker, var(--accent));
       flex-shrink: 0;
     }
-    .output-card.blue  .oc-item { color: #2563eb; }
-    .output-card.purple .oc-item { color: #7c3aed; }
-    .output-card.pink  .oc-item { color: #db2777; }
-    .output-card.green .oc-item { color: #059669; }
-    .output-card .oc-title { color: #1a1a2e; }
+    .output-card.blue  .oc-item { --marker: var(--c-blue-2); }
+    .output-card.purple .oc-item { --marker: var(--c-purple-2); }
+    .output-card.pink  .oc-item { --marker: var(--c-pink-2); }
+    .output-card.green .oc-item { --marker: var(--c-green-2); }
 
     /* ── FLOW OVERVIEW ── */
     .flow-overview {
       max-width: 940px;
       margin: 30px auto 0;
-      background: #fff;
+      background: var(--surface);
+      border: 1px solid var(--line);
       border-radius: 16px;
       padding: 24px 30px;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+      box-shadow: var(--shadow);
     }
     .flow-overview h2 {
+      font-family: var(--mono);
       font-size: 13px;
-      font-weight: 700;
+      font-weight: 600;
       letter-spacing: 2px;
       text-transform: uppercase;
-      color: #999;
+      color: var(--dim);
       margin-bottom: 16px;
       text-align: center;
     }
@@ -320,17 +395,18 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      font-family: var(--display);
       font-size: 18px;
-      font-weight: 900;
+      font-weight: 700;
       color: #fff;
       margin-bottom: 8px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.25);
     }
-    .flow-step p { font-size: 11px; font-weight: 600; color: #555; line-height: 1.3; }
-    .flow-step span { font-size: 10px; color: #999; margin-top: 2px; }
+    .flow-step p { font-size: 11px; font-weight: 600; color: var(--text); line-height: 1.3; }
+    .flow-step span { font-size: 10px; color: var(--dim); margin-top: 2px; }
     .step-arrow {
       font-size: 20px;
-      color: #c0c8d8;
+      color: var(--line-2);
       padding: 0 4px;
       margin-bottom: 20px;
     }
@@ -338,12 +414,19 @@
     .watermark {
       text-align: center;
       margin-top: 36px;
+      font-family: var(--mono);
       font-size: 11px;
-      color: #bbb;
+      color: var(--dim);
     }
   </style>
 </head>
 <body>
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <a class="back-link" href="index.html">&larr; Back to portfolio</a>
+    <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">&#9728;</button>
+  </div>
 
   <!-- TITLE -->
   <div class="page-title">
@@ -469,31 +552,31 @@
     <h2>End-to-End Content Cycle</h2>
     <div class="flow-steps">
       <div class="flow-step">
-        <div class="step-circle" style="background:#2563eb;">1</div>
+        <div class="step-circle" style="background:var(--c-blue-2);">1</div>
         <p>SEO 1 writes sprint brief</p>
         <span>Keyword + outline</span>
       </div>
       <div class="step-arrow">→</div>
       <div class="flow-step">
-        <div class="step-circle" style="background:#7c3aed;">2</div>
+        <div class="step-circle" style="background:var(--c-purple-2);">2</div>
         <p>SEO 2‑A drafts article</p>
         <span>2,000–2,500 words</span>
       </div>
       <div class="step-arrow">→</div>
       <div class="flow-step">
-        <div class="step-circle" style="background:#db2777;">3</div>
+        <div class="step-circle" style="background:var(--c-pink-2);">3</div>
         <p>SEO 2‑B produces &amp; publishes</p>
         <span>HTML + LinkedIn</span>
       </div>
       <div class="step-arrow">→</div>
       <div class="flow-step">
-        <div class="step-circle" style="background:#059669;">4</div>
+        <div class="step-circle" style="background:var(--c-green-2);">4</div>
         <p>SEO 3 monitors citations</p>
         <span>AI &amp; search tracking</span>
       </div>
       <div class="step-arrow">→</div>
       <div class="flow-step">
-        <div class="step-circle" style="background:#1a1a2e;">↺</div>
+        <div class="step-circle" style="background:var(--accent);">↺</div>
         <p>Gaps fed back to SEO 1</p>
         <span>Next sprint topics</span>
       </div>
@@ -536,6 +619,12 @@
   </div>
 
   <div class="watermark">Workspaceco Outsourcing · SEO Agent System · Generated April 2026</div>
+
+  <script>(function(){var s=localStorage.getItem("theme");if(s==="light"||s==="dark")document.documentElement.setAttribute("data-theme",s);})();
+  var _t=document.getElementById("themeToggle");
+  function _ct(){return document.documentElement.getAttribute("data-theme")||((window.matchMedia&&matchMedia("(prefers-color-scheme:light)").matches)?"light":"dark");}
+  function _si(){if(_t)_t.innerHTML=(_ct()==="light")?"☽":"☀";}
+  _si();if(_t)_t.addEventListener("click",function(){var n=_ct()==="light"?"dark":"light";document.documentElement.setAttribute("data-theme",n);localStorage.setItem("theme",n);_si();});</script>
 
 </body>
 </html>
