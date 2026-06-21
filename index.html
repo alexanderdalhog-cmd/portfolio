@@ -1360,8 +1360,269 @@
     </div>
 </section>
 
-<!-- PROJECTS -->
+<!-- MARIE ORIGINALS PROJECTS -->
 <section class="projects" id="projects">
+    <div class="container">
+        <div class="section-label reveal">Featured Projects</div>
+        <h2 class="section-title reveal">Built at Marie Originals</h2>
+        <p class="section-subtitle reveal">Production automation across a multi-channel retail stack (Shopify DTC, Amazon FBA, Walmart Marketplace and WFS, and 18 EDI wholesale channels), built and operated by me on Zoho One, ShipStation, EasyShip, and the Claude API.</p>
+        <div class="project-grid">
+
+            <!-- MO PROJECT 1 -->
+            <div class="project-card featured reveal tilt">
+                <div class="project-header">
+                    <div>
+                        <h3>Real-Time Multi-Channel Order Fulfillment Engine</h3>
+                        <div class="project-sub">Zoho Inventory &harr; ShipStation sync across every channel</div>
+                    </div>
+                    <div class="project-icon">&#x1F4E6;</div>
+                </div>
+                <div class="project-body">
+                    <div class="row">
+                        <span class="row-label">Problem</span>
+                        <span class="row-value">Orders from Shopify, Amazon FBA, Walmart, and 18 EDI wholesale channels all had to reach the warehouse fast and without duplicates.</span>
+                    </div>
+                    <div class="row">
+                        <span class="row-label">Solution</span>
+                        <span class="row-value">A real-time and scheduled Deluge layer that pushes each sales order from Zoho into ShipStation within seconds, with auto-confirm, duplicate detection, an Amazon bypass, tracking writeback, and package and shipment closeout for EDI fulfillment.</span>
+                    </div>
+                    <div class="row">
+                        <span class="row-label">Impact</span>
+                        <span class="row-value">Runs 700 to 800 times a day and has held zero hard failures across a full year on the core webhook flow.</span>
+                    </div>
+                </div>
+                <div class="stats-row">
+                    <div class="stat"><div class="stat-num">18</div><div class="stat-label">EDI Channels</div></div>
+                    <div class="stat"><div class="stat-num">700+</div><div class="stat-label">Daily Runs</div></div>
+                    <div class="stat"><div class="stat-num">~sec</div><div class="stat-label">Sync Latency</div></div>
+                    <div class="stat"><div class="stat-num">0</div><div class="stat-label">Hard Failures</div></div>
+                </div>
+                <div class="project-tech">
+                    <span class="tech-tag">Zoho Inventory</span>
+                    <span class="tech-tag">Deluge</span>
+                    <span class="tech-tag">ShipStation API</span>
+                    <span class="tech-tag">Zoho Flow</span>
+                    <span class="tech-tag">Webhooks</span>
+                </div>
+            </div>
+
+            <!-- MO PROJECT 2 -->
+            <div class="project-card featured reveal tilt">
+                <div class="project-header">
+                    <div>
+                        <h3>Universal EasyShip Order-Number Unification</h3>
+                        <div class="project-sub">One searchable ID across every shipment + EDI failsafe</div>
+                    </div>
+                    <div class="project-icon">&#x1F517;</div>
+                </div>
+                <div class="project-body">
+                    <div class="row">
+                        <span class="row-label">Problem</span>
+                        <span class="row-value">Shipments were scattered across platforms with no single searchable ID, and EDI orders had no backup if ShipStation went down.</span>
+                    </div>
+                    <div class="row">
+                        <span class="row-label">Solution</span>
+                        <span class="row-value">An event-triggered Deluge rewriter that renames every EasyShip shipment to the canonical sales-order number the instant a package is created, plus a parallel failsafe that mirrors each wholesale order into EasyShip as a backup labeled shipment. Uses a client-side match-back strategy with no shared external ID.</span>
+                    </div>
+                    <div class="row">
+                        <span class="row-label">Impact</span>
+                        <span class="row-value">One-ID searchability across all channels with zero duplicate shipments, covering roughly 700 shipments a month.</span>
+                    </div>
+                </div>
+                <div class="stats-row">
+                    <div class="stat"><div class="stat-num">~700</div><div class="stat-label">Shipments / mo</div></div>
+                    <div class="stat"><div class="stat-num">18</div><div class="stat-label">Channels</div></div>
+                    <div class="stat"><div class="stat-num">0</div><div class="stat-label">Duplicates</div></div>
+                </div>
+                <div class="project-tech">
+                    <span class="tech-tag">Deluge</span>
+                    <span class="tech-tag">EasyShip 2024-09 API</span>
+                    <span class="tech-tag">Zoho Inventory</span>
+                    <span class="tech-tag">Idempotency Locks</span>
+                </div>
+            </div>
+
+            <!-- MO PROJECT 3 -->
+            <div class="project-card featured reveal tilt">
+                <div class="project-header">
+                    <div>
+                        <h3>AI Candidate Screening Pipeline</h3>
+                        <div class="project-sub">Claude API applicant scoring + auto-tiering</div>
+                    </div>
+                    <div class="project-icon">&#x1F916;</div>
+                </div>
+                <div class="project-body">
+                    <div class="row">
+                        <span class="row-label">Problem</span>
+                        <span class="row-value">Reviewing every applicant by hand across many open roles did not scale.</span>
+                    </div>
+                    <div class="row">
+                        <span class="row-label">Solution</span>
+                        <span class="row-value">A pipeline that scores each applicant against a role-specific 100-point rubric via the Claude API, auto-tiers them, and routes tiered emails with a human-in-the-loop rejection queue. Built three ways: Google Apps Script, a native Zoho Recruit function, and a Zoho Flow plus Notion orchestration.</span>
+                    </div>
+                    <div class="row">
+                        <span class="row-label">Impact</span>
+                        <span class="row-value">Cuts manual review to only the top candidates at roughly $0.014 per applicant, backed by a careers site and a Notion applicant database.</span>
+                    </div>
+                </div>
+                <div class="stats-row">
+                    <div class="stat"><div class="stat-num">100</div><div class="stat-label">Point Rubric</div></div>
+                    <div class="stat"><div class="stat-num">$0.014</div><div class="stat-label">Per Candidate</div></div>
+                    <div class="stat"><div class="stat-num">3</div><div class="stat-label">Platforms</div></div>
+                </div>
+                <div class="project-tech">
+                    <span class="tech-tag">Claude API</span>
+                    <span class="tech-tag">Apps Script</span>
+                    <span class="tech-tag">Zoho Recruit</span>
+                    <span class="tech-tag">Zoho Flow</span>
+                    <span class="tech-tag">Notion</span>
+                </div>
+            </div>
+
+            <!-- MO PROJECT 4 -->
+            <div class="project-card featured reveal tilt">
+                <div class="project-header">
+                    <div>
+                        <h3>HCP Lead Vetting &amp; Fraud-Detection Engine</h3>
+                        <div class="project-sub">Zoho CRM Deluge engine, five iterations</div>
+                    </div>
+                    <div class="project-icon">&#x1F6E1;</div>
+                </div>
+                <div class="project-body">
+                    <div class="row">
+                        <span class="row-label">Problem</span>
+                        <span class="row-value">Duplicate and fraudulent healthcare-provider sample requests clogged the validation queue and risked sending free product twice.</span>
+                    </div>
+                    <div class="row">
+                        <span class="row-label">Solution</span>
+                        <span class="row-value">A five-iteration Zoho CRM Deluge engine that screens every lead on create or edit using normalized address, phone-axis, and shipped-evidence matching, with Blueprint stage automation, self-explaining audit notes, and a legacy-backlog backfill.</span>
+                    </div>
+                    <div class="row">
+                        <span class="row-label">Impact</span>
+                        <span class="row-value">Cut the operator's daily triage queue by 21 percent and flagged 179 hard duplicates.</span>
+                    </div>
+                </div>
+                <div class="stats-row">
+                    <div class="stat"><div class="stat-num">21%</div><div class="stat-label">Queue Cut</div></div>
+                    <div class="stat"><div class="stat-num">179</div><div class="stat-label">Dupes Flagged</div></div>
+                    <div class="stat"><div class="stat-num">5</div><div class="stat-label">Iterations</div></div>
+                </div>
+                <div class="project-tech">
+                    <span class="tech-tag">Zoho CRM</span>
+                    <span class="tech-tag">Deluge</span>
+                    <span class="tech-tag">Blueprint</span>
+                    <span class="tech-tag">COQL</span>
+                </div>
+            </div>
+
+            <!-- MO PROJECT 5 -->
+            <div class="project-card featured reveal tilt">
+                <div class="project-header">
+                    <div>
+                        <h3>Walmart Multi-Package Tracking Recovery</h3>
+                        <div class="project-sub">One-line bug fix, full tracking restored</div>
+                    </div>
+                    <div class="project-icon">&#x1F69A;</div>
+                </div>
+                <div class="project-body">
+                    <div class="row">
+                        <span class="row-label">Problem</span>
+                        <span class="row-value">Multi-package Walmart orders were losing all but one tracking number on the way back into Zoho.</span>
+                    </div>
+                    <div class="row">
+                        <span class="row-label">Solution</span>
+                        <span class="row-value">Root-caused the loss to a single overwrite line in a dormant scheduled function, fixed it, and reactivated the job so every shipment accumulates instead of overwriting.</span>
+                    </div>
+                    <div class="row">
+                        <span class="row-label">Impact</span>
+                        <span class="row-value">Restored the complete tracking set for 414 orders across 487 shipments with zero errors, recovering some orders from one tracking number to as many as six.</span>
+                    </div>
+                </div>
+                <div class="stats-row">
+                    <div class="stat"><div class="stat-num">414</div><div class="stat-label">Orders Fixed</div></div>
+                    <div class="stat"><div class="stat-num">487</div><div class="stat-label">Shipments</div></div>
+                    <div class="stat"><div class="stat-num">0</div><div class="stat-label">Errors</div></div>
+                </div>
+                <div class="project-tech">
+                    <span class="tech-tag">Deluge</span>
+                    <span class="tech-tag">ShipStation API</span>
+                    <span class="tech-tag">Zoho Inventory</span>
+                </div>
+            </div>
+
+            <!-- MO PROJECT 6 -->
+            <div class="project-card featured reveal tilt">
+                <div class="project-header">
+                    <div>
+                        <h3>Automated EDI Invoicing &amp; Kit Itemization</h3>
+                        <div class="project-sub">Fail-loud invoicing and pricing for wholesale</div>
+                    </div>
+                    <div class="project-icon">&#x1F9FE;</div>
+                </div>
+                <div class="project-body">
+                    <div class="row">
+                        <span class="row-label">Problem</span>
+                        <span class="row-value">Wholesale invoicing was manual, kit components were not broken out for customers, and a mis-keyed price could ship silently.</span>
+                    </div>
+                    <div class="row">
+                        <span class="row-label">Solution</span>
+                        <span class="row-value">An hourly Deluge job that auto-creates draft invoices for confirmed wholesale orders using a double-gate classifier, a function that itemizes kit and composite components into invoice line descriptions, and a gap-safe price-list enrichment that alerts on a missing rate instead of shipping a wrong price.</span>
+                    </div>
+                    <div class="row">
+                        <span class="row-label">Impact</span>
+                        <span class="row-value">Removed manual EDI invoicing and replaced fragile happy-path pricing with fail-loud automation that surfaces problems before a customer sees them.</span>
+                    </div>
+                </div>
+                <div class="project-tech">
+                    <span class="tech-tag">Deluge</span>
+                    <span class="tech-tag">Zoho Books</span>
+                    <span class="tech-tag">Zoho Inventory</span>
+                    <span class="tech-tag">Scheduled Functions</span>
+                </div>
+            </div>
+
+            <!-- MO PROJECT 7 -->
+            <div class="project-card featured reveal tilt">
+                <div class="project-header">
+                    <div>
+                        <h3>Daily Operations Automation Bundle</h3>
+                        <div class="project-sub">Scheduled jobs that run the warehouse day</div>
+                    </div>
+                    <div class="project-icon">&#x2699;</div>
+                </div>
+                <div class="project-body">
+                    <div class="row">
+                        <span class="row-label">Problem</span>
+                        <span class="row-value">The warehouse day depended on recurring manual tasks: SCAN forms, low-stock checks, open-order pulls, and delivery-status updates.</span>
+                    </div>
+                    <div class="row">
+                        <span class="row-label">Solution</span>
+                        <span class="row-value">A suite of scheduled Deluge jobs: automatic USPS SCAN-form generation and electronic manifest transmission, rolling delivery-status tagging, a low-stock digest backed by data-derived reorder levels, an EDI open-orders report, and a same-day duplicate-shipment guard with Cliq audit alerts.</span>
+                    </div>
+                    <div class="row">
+                        <span class="row-label">Impact</span>
+                        <span class="row-value">Turned recurring manual ops into reliable, self-reporting automation, with a single counter scan covering 80 to 130 packages a day.</span>
+                    </div>
+                </div>
+                <div class="stats-row">
+                    <div class="stat"><div class="stat-num">80-130</div><div class="stat-label">Pkgs / Day</div></div>
+                    <div class="stat"><div class="stat-num">5+</div><div class="stat-label">Scheduled Jobs</div></div>
+                </div>
+                <div class="project-tech">
+                    <span class="tech-tag">Deluge</span>
+                    <span class="tech-tag">Zoho Inventory</span>
+                    <span class="tech-tag">USPS</span>
+                    <span class="tech-tag">ShipStation</span>
+                    <span class="tech-tag">Cliq</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- PROJECTS (Workspaceco) -->
+<section class="projects" id="workspaceco-projects">
     <div class="container">
         <div class="section-label reveal">Featured Projects</div>
         <h2 class="section-title reveal">Built at Workspaceco Using AI</h2>
