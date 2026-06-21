@@ -1,43 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-        <loc>https://alexander-dalhog-portfolio.netlify.app/</loc>
+        <loc>https://alexanderdalhog-cmd.github.io/portfolio/</loc>
         <lastmod>2026-04-19</lastmod>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
     </url>
     <url>
-        <loc>https://alexander-dalhog-portfolio.netlify.app/resume.html</loc>
+        <loc>https://alexanderdalhog-cmd.github.io/portfolio/resume.html</loc>
         <lastmod>2026-04-19</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.9</priority>
     </url>
     <url>
-        <loc>https://alexander-dalhog-portfolio.netlify.app/for-recruiters.html</loc>
+        <loc>https://alexanderdalhog-cmd.github.io/portfolio/for-recruiters.html</loc>
         <lastmod>2026-04-19</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.9</priority>
     </url>
     <url>
-        <loc>https://alexander-dalhog-portfolio.netlify.app/case-study-training-pipeline.html</loc>
+        <loc>https://alexanderdalhog-cmd.github.io/portfolio/case-study-training-pipeline.html</loc>
         <lastmod>2026-04-19</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://alexander-dalhog-portfolio.netlify.app/case-study-eod-compliance.html</loc>
+        <loc>https://alexanderdalhog-cmd.github.io/portfolio/case-study-eod-compliance.html</loc>
         <lastmod>2026-04-19</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://alexander-dalhog-portfolio.netlify.app/va-ops-agent-diagram.html</loc>
+        <loc>https://alexanderdalhog-cmd.github.io/portfolio/va-ops-agent-diagram.html</loc>
         <lastmod>2026-04-19</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
     <url>
-        <loc>https://alexander-dalhog-portfolio.netlify.app/wsc-seo-agent-diagram.html</loc>
+        <loc>https://alexanderdalhog-cmd.github.io/portfolio/wsc-seo-agent-diagram.html</loc>
         <lastmod>2026-04-19</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
