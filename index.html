@@ -46,7 +46,7 @@
 :root{
   --bg:#07080d; --bg-2:#0b0d15; --surface:#10131f; --surface-2:#161a29;
   --line:rgba(255,255,255,.08); --line-2:rgba(255,255,255,.14);
-  --text:#eaecf5; --muted:#9aa3bd; --dim:#6b7390;
+  --text:#eaecf5; --muted:#9aa3bd; --dim:#828bab;
   --violet:#8b5cff; --cyan:#22d3ee; --teal:#2bd9a8; --pink:#f06fb0;
   --accent:#8b5cff; --accent-2:#22d3ee;
   --grad:linear-gradient(110deg,#8b5cff 0%,#6d8bff 38%,#22d3ee 100%);
@@ -59,7 +59,7 @@
   --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;scroll-padding-top:84px}
+html{scroll-behavior:smooth;scroll-padding-top:74px}
 body{
   background:var(--bg);color:var(--text);font-family:var(--font);
   line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden;
@@ -77,6 +77,7 @@ body::after{
   background-size:46px 46px;mask-image:radial-gradient(80% 60% at 50% 0%,#000,transparent 80%);
 }
 a{color:inherit;text-decoration:none}
+a:focus-visible,button:focus-visible,summary:focus-visible,.chip:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--accent-2);outline-offset:2px;border-radius:6px}
 img{max-width:100%;display:block}
 section{position:relative}
 .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
@@ -155,8 +156,11 @@ header.scrolled{background:rgba(7,8,13,.72);backdrop-filter:blur(16px);border-bo
 .gcard.flagship{border-color:rgba(139,92,255,.4);background:linear-gradient(180deg,rgba(139,92,255,.07),var(--surface))}
 .gcard-top{display:flex;align-items:center;justify-content:space-between;gap:10px}
 .gcat{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-2)}
+.gright{display:inline-flex;align-items:center;gap:6px}
+.gflag{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:#0a0a12;background:var(--grad);padding:3px 9px;border-radius:999px;font-weight:600}
 .gstatus{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:999px;border:1px solid var(--line-2);color:var(--muted);white-space:nowrap}
-.gstatus.live{color:var(--teal);border-color:rgba(43,217,168,.35);background:rgba(43,217,168,.08)}
+.gstatus.s-live,.gstatus.s-done,.gstatus.s-setup{color:var(--teal);border-color:rgba(43,217,168,.35);background:rgba(43,217,168,.08)}
+.gstatus.s-built{color:var(--accent-2);border-color:rgba(34,211,238,.3);background:rgba(34,211,238,.07)}
 .gcard h3{font-size:18px;font-weight:600;line-height:1.25}
 .gcard p{color:var(--muted);font-size:14.5px;line-height:1.6}
 .gtags{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto;padding-top:6px}
@@ -167,8 +171,9 @@ header.scrolled{background:rgba(7,8,13,.72);backdrop-filter:blur(16px);border-bo
 .diagram{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:30px;margin-bottom:22px;overflow-x:auto}
 .diagram h3{font-size:19px;margin-bottom:6px}
 .diagram .dsub{color:var(--muted);font-size:14.5px;margin-bottom:26px}
-.flow{display:flex;align-items:center;gap:0;min-width:560px}
-.node{flex:1;background:var(--bg-2);border:1px solid var(--line-2);border-radius:12px;padding:15px 14px;text-align:center}
+.flow{display:flex;align-items:center;gap:0;min-width:560px;position:relative}
+.flow::before{content:"";position:absolute;left:10px;right:10px;top:50%;height:2px;background:linear-gradient(90deg,transparent,rgba(139,92,255,.45),rgba(34,211,238,.45),transparent);z-index:0}
+.node{flex:1;background:var(--bg-2);border:1px solid var(--line-2);border-radius:12px;padding:15px 14px;text-align:center;position:relative;z-index:1}
 .node .nt{font-weight:600;font-size:14px}
 .node .ns{font-family:var(--mono);font-size:11px;color:var(--dim);margin-top:4px}
 .node.hot{border-color:rgba(139,92,255,.5);background:linear-gradient(180deg,rgba(139,92,255,.12),var(--bg-2))}
@@ -222,7 +227,7 @@ header.scrolled{background:rgba(7,8,13,.72);backdrop-filter:blur(16px);border-bo
 /* SKILLS */
 .skill-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}
 .skill-col{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:22px}
-.skill-col h4{font-family:var(--display);font-size:15px;color:var(--accent-2);margin-bottom:14px;font-weight:600}
+.skill-col h3{font-family:var(--display);font-size:15px;color:var(--accent-2);margin-bottom:14px;font-weight:600}
 .skill-col .tags{display:flex;flex-wrap:wrap;gap:7px}
 .skill-col .tags span{font-size:12.5px;color:var(--muted);background:rgba(255,255,255,.04);border:1px solid var(--line);padding:5px 11px;border-radius:8px}
 
@@ -238,7 +243,7 @@ form.cf{background:var(--surface);border:1px solid var(--line);border-radius:var
 .cf-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .cf label{display:block;font-size:12px;font-family:var(--mono);text-transform:uppercase;letter-spacing:.08em;color:var(--dim);margin:14px 0 7px}
 .cf input,.cf select,.cf textarea{width:100%;background:var(--bg-2);border:1px solid var(--line-2);border-radius:10px;padding:12px 14px;color:var(--text);font-family:var(--font);font-size:15px;transition:border-color .2s}
-.cf input:focus,.cf select:focus,.cf textarea:focus{outline:none;border-color:var(--accent)}
+.cf input:focus,.cf select:focus,.cf textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(34,211,238,.3)}
 .cf textarea{min-height:120px;resize:vertical}
 .cf .btn{margin-top:20px;width:100%;justify-content:center}
 .cf-ok{display:none;background:rgba(43,217,168,.1);border:1px solid rgba(43,217,168,.35);color:var(--teal);border-radius:10px;padding:12px 14px;font-size:14px;margin-bottom:14px}
@@ -264,6 +269,9 @@ footer{border-top:1px solid var(--line);padding:46px 0 36px;margin-top:40px}
 @media (max-width:900px){
   .hero-grid{grid-template-columns:1fr;gap:40px}
   .portrait-wrap{order:-1}
+  .pb-1{left:6px}.pb-2{right:6px}
+  .diagram{position:relative}
+  .diagram::after{content:"\2194 scroll";position:absolute;top:16px;right:18px;font-family:var(--mono);font-size:10px;letter-spacing:.05em;color:var(--dim)}
   .stats-grid{grid-template-columns:repeat(2,1fr)}
   .gallery{grid-template-columns:repeat(2,1fr)}
   .contact-grid{grid-template-columns:1fr}
@@ -275,7 +283,7 @@ footer{border-top:1px solid var(--line);padding:46px 0 36px;margin-top:40px}
   .burger{display:block}
 }
 @media (max-width:560px){
-  .stats-grid{grid-template-columns:1fr 1fr}
+  .stats-grid{grid-template-columns:1fr}
   .gallery{grid-template-columns:1fr}
   .cf-row{grid-template-columns:1fr}
   .case-row{grid-template-columns:1fr}
@@ -329,7 +337,7 @@ footer{border-top:1px solid var(--line);padding:46px 0 36px;margin-top:40px}
       <div class="portrait-ring"></div>
       <img class="portrait" src="photo-headshot.jpg" alt="Alexander F. Dalhog Jr." width="320" height="320" loading="eager">
       <div class="portrait-badge pb-1"><span class="pip"></span> 700+ daily automation runs</div>
-      <div class="portrait-badge pb-2">&#9889; 0 hard failures / yr</div>
+      <div class="portrait-badge pb-2">&#9889; 0 hard failures / yr <span style="color:var(--dim)">(core flow)</span></div>
     </div>
   </div>
 
@@ -508,11 +516,11 @@ footer{border-top:1px solid var(--line);padding:46px 0 36px;margin-top:40px}
       <h2>What I work with.</h2>
     </div>
     <div class="skill-grid">
-      <div class="skill-col reveal"><h4>Automation</h4><div class="tags"><span>n8n</span><span>Zoho Flow</span><span>Make</span><span>Zapier</span><span>GoHighLevel</span><span>Webhooks</span><span>Event-driven</span></div></div>
-      <div class="skill-col reveal"><h4>AI &amp; LLM</h4><div class="tags"><span>Claude API</span><span>Claude Code</span><span>MCP</span><span>Prompt engineering</span><span>Structured output</span><span>OpenRouter</span></div></div>
-      <div class="skill-col reveal"><h4>Code &amp; Data</h4><div class="tags"><span>Deluge</span><span>JavaScript</span><span>Python</span><span>FastAPI</span><span>SQL / COQL</span><span>REST &amp; OAuth</span></div></div>
-      <div class="skill-col reveal"><h4>Platforms</h4><div class="tags"><span>Zoho One</span><span>ShipStation</span><span>EasyShip</span><span>ConnectPointz EDI</span><span>Shopify</span><span>Notion</span><span>HubSpot</span></div></div>
-      <div class="skill-col reveal"><h4>Ops &amp; People</h4><div class="tags"><span>Order fulfillment</span><span>Inventory</span><span>Invoicing</span><span>CRM</span><span>Recruitment</span><span>L&amp;D</span></div></div>
+      <div class="skill-col reveal"><h3>Automation</h3><div class="tags"><span>n8n</span><span>Zoho Flow</span><span>Make</span><span>Zapier</span><span>GoHighLevel</span><span>Webhooks</span><span>Event-driven</span></div></div>
+      <div class="skill-col reveal"><h3>AI &amp; LLM</h3><div class="tags"><span>Claude API</span><span>Claude Code</span><span>MCP</span><span>Prompt engineering</span><span>Structured output</span><span>OpenRouter</span></div></div>
+      <div class="skill-col reveal"><h3>Code &amp; Data</h3><div class="tags"><span>Deluge</span><span>JavaScript</span><span>Python</span><span>FastAPI</span><span>SQL / COQL</span><span>REST &amp; OAuth</span></div></div>
+      <div class="skill-col reveal"><h3>Platforms</h3><div class="tags"><span>Zoho One</span><span>ShipStation</span><span>EasyShip</span><span>ConnectPointz EDI</span><span>Shopify</span><span>Notion</span><span>HubSpot</span></div></div>
+      <div class="skill-col reveal"><h3>Ops &amp; People</h3><div class="tags"><span>Order fulfillment</span><span>Inventory</span><span>Invoicing</span><span>CRM</span><span>Recruitment</span><span>L&amp;D</span></div></div>
     </div>
   </div>
 </section>
@@ -527,14 +535,14 @@ footer{border-top:1px solid var(--line);padding:46px 0 36px;margin-top:40px}
     </div>
     <div class="contact-grid">
       <div class="contact-info reveal">
-        <a class="ci-row" href="mailto:alex.dalhog@gmail.com"><span class="ci-ico">&#9993;</span><span><span class="l">Email</span><br><span class="v">alex.dalhog@gmail.com</span></span></a>
-        <a class="ci-row" href="tel:+639984909379"><span class="ci-ico">&#128222;</span><span><span class="l">Phone</span><br><span class="v">+63 998 490 9379</span></span></a>
-        <a class="ci-row" href="https://wa.me/639369570147" target="_blank" rel="noopener"><span class="ci-ico">&#128172;</span><span><span class="l">WhatsApp</span><br><span class="v">+63 936 957 0147</span></span></a>
-        <a class="ci-row" href="https://www.linkedin.com/in/alexander-dalhog-jr-b30a12194/" target="_blank" rel="noopener"><span class="ci-ico">&#128188;</span><span><span class="l">LinkedIn</span><br><span class="v">Connect with me</span></span></a>
-        <a class="ci-row" href="https://github.com/alexanderdalhog-cmd" target="_blank" rel="noopener"><span class="ci-ico">&#128187;</span><span><span class="l">GitHub</span><br><span class="v">alexanderdalhog-cmd</span></span></a>
+        <a class="ci-row" href="mailto:alex.dalhog@gmail.com"><span class="ci-ico" aria-hidden="true">&#9993;</span><span><span class="l">Email</span><br><span class="v">alex.dalhog@gmail.com</span></span></a>
+        <a class="ci-row" href="tel:+639984909379"><span class="ci-ico" aria-hidden="true">&#128222;</span><span><span class="l">Phone</span><br><span class="v">+63 998 490 9379</span></span></a>
+        <a class="ci-row" href="https://wa.me/639369570147" target="_blank" rel="noopener"><span class="ci-ico" aria-hidden="true">&#128172;</span><span><span class="l">WhatsApp</span><br><span class="v">+63 936 957 0147</span></span></a>
+        <a class="ci-row" href="https://www.linkedin.com/in/alexander-dalhog-jr-b30a12194/" target="_blank" rel="noopener"><span class="ci-ico" aria-hidden="true">&#128188;</span><span><span class="l">LinkedIn</span><br><span class="v">Connect with me</span></span></a>
+        <a class="ci-row" href="https://github.com/alexanderdalhog-cmd" target="_blank" rel="noopener"><span class="ci-ico" aria-hidden="true">&#128187;</span><span><span class="l">GitHub</span><br><span class="v">alexanderdalhog-cmd</span></span></a>
       </div>
       <form class="cf reveal" onsubmit="handleContactSubmit(event)">
-        <div class="cf-ok" id="cfOk">&#10003; Thanks! Your email app should open with the message ready to send.</div>
+        <div class="cf-ok" id="cfOk" role="status" aria-live="polite">&#10003; Thanks! Your email app should open with the message ready to send.</div>
         <div class="cf-row">
           <div><label for="name">Your name</label><input id="name" name="name" required></div>
           <div><label for="email">Email</label><input id="email" name="email" type="email" required></div>
@@ -686,6 +694,7 @@ function renderFilters(){
 }
 function renderGallery(){
   var list=SYSTEMS.filter(function(x){return current==="all"||x.c===current});
+  list.sort(function(a,b){return (b.f||0)-(a.f||0)});
   gallery.innerHTML="";
   list.forEach(function(x){
     var card=document.createElement("article");
@@ -693,7 +702,8 @@ function renderGallery(){
     var tags=x.t.map(function(t){return '<span class="gtag">'+esc(t)+'</span>'}).join("");
     card.innerHTML=
       '<div class="gcard-top"><span class="gcat">'+esc(catName(x.c))+'</span>'+
-      '<span class="gstatus '+(x.s==="live"?"live":"")+'">'+(statusLabel[x.s]||x.s)+'</span></div>'+
+      '<span class="gright">'+(x.f?'<span class="gflag">Flagship</span>':'')+
+      '<span class="gstatus s-'+x.s+'">'+(statusLabel[x.s]||x.s)+'</span></span></div>'+
       '<h3>'+esc(x.n)+'</h3><p>'+esc(x.d)+'</p>'+
       '<div class="gtags">'+tags+'</div>';
     gallery.appendChild(card);
@@ -708,7 +718,7 @@ function renderCases(){
     d.className="case reveal";
     var m=c.metrics.map(function(x){return '<div><b>'+esc(x[0])+'</b><span>'+esc(x[1])+'</span></div>'}).join("");
     d.innerHTML=
-      '<summary><div class="case-h"><div class="case-ico">'+c.ico+'</div>'+
+      '<summary><div class="case-h"><div class="case-ico" aria-hidden="true">'+c.ico+'</div>'+
       '<div><h3>'+esc(c.t)+'</h3><div class="ct">'+esc(c.sub)+'</div></div></div>'+
       '<div class="tgl">+</div></summary>'+
       '<div class="case-body">'+
@@ -764,18 +774,19 @@ function bindTilt(){
 }
 
 /* ---------- NAV ---------- */
-var header=document.getElementById("header");
+var header=document.getElementById("header"),totopBtn=document.getElementById("totop");
 window.addEventListener("scroll",function(){
   header.classList.toggle("scrolled",window.scrollY>20);
-  document.getElementById("totop").classList.toggle("show",window.scrollY>700);
+  totopBtn.classList.toggle("show",window.scrollY>700);
 });
 var burger=document.getElementById("burger"),navLinks=document.getElementById("navLinks");
 burger.addEventListener("click",function(){
   var open=navLinks.classList.toggle("open");
   burger.setAttribute("aria-expanded",open?"true":"false");
+  burger.setAttribute("aria-label",open?"Close menu":"Open menu");
 });
 navLinks.querySelectorAll("a").forEach(function(a){a.addEventListener("click",function(){navLinks.classList.remove("open")})});
-document.getElementById("totop").addEventListener("click",function(){window.scrollTo({top:0,behavior:"smooth"})});
+totopBtn.addEventListener("click",function(){window.scrollTo({top:0,behavior:"smooth"})});
 
 /* ---------- CONTACT (mailto) ---------- */
 window.handleContactSubmit=function(e){
