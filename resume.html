@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alexander F. Dalhog Jr. — Resume & Portfolio</title>
-    <meta name="description" content="Resume of Alexander F. Dalhog Jr. — Development & Experience Manager, AI Automation Builder, People Operations Leader.">
+    <meta name="description" content="Resume of Alexander F. Dalhog Jr. — Director of Warehouse & Logistics, Head of HR, AI & Automations, People Operations Leader.">
     <meta name="theme-color" content="#07080d">
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%238b5cff'/%3E%3Ctext x='50%25' y='50%25' dy='.35em' text-anchor='middle' font-family='Inter,sans-serif' font-weight='800' font-size='28' fill='white'%3EAD%3C/text%3E%3C/svg%3E">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -603,7 +603,7 @@
         </div>
         <div class="header-info">
             <h1>Alexander F. Dalhog Jr.</h1>
-            <div class="tagline">Development & Experience Manager | AI Automation Builder | People Operations Leader</div>
+            <div class="tagline">Director of Warehouse &amp; Logistics | Head of HR, AI &amp; Automations | People Operations Leader</div>
             <div class="contact-row" style="justify-content: flex-start;">
                 <span>alex.dalhog@gmail.com</span>
                 <span class="separator">|</span>
@@ -624,7 +624,7 @@
     <div class="section">
         <div class="section-title">Professional Summary</div>
         <div class="summary">
-            <p>AI &amp; automation builder and people-operations leader with 8+ years across talent acquisition, organizational development, and remote team management, now focused on building production automation systems. Currently AI &amp; Automations Builder for Marie Originals, a multi-channel US retailer (DTC and B2B/EDI), where I automate order-to-fulfillment, invoicing, inventory, and CRM workflows across Zoho One and ShipStation using Deluge, webhooks, and REST APIs. Previously led the employee journey for 70+ virtual assistants at Workspaceco Outsourcing, designing and deploying production systems with Claude AI, n8n, and Python, including a 6-agent training pipeline and real-time compliance monitoring. I combine deep operations expertise with hands-on AI engineering to turn manual, error-prone processes into reliable, self-running systems.</p>
+            <p>AI &amp; automation builder and people-operations leader with 8+ years across talent acquisition, organizational development, and remote team management, now focused on building production automation systems. Currently Director of Warehouse &amp; Logistics and Head of HR, AI &amp; Automations for Marie Originals, a multi-channel US retailer (DTC and B2B/EDI), where I automate order-to-fulfillment, invoicing, inventory, and CRM workflows across Zoho One and ShipStation using Deluge, webhooks, and REST APIs. Previously led the employee journey for 70+ virtual assistants at Workspaceco Outsourcing, designing and deploying production systems with Claude AI, n8n, and Python, including a 6-agent training pipeline and real-time compliance monitoring. I combine deep operations expertise with hands-on AI engineering to turn manual, error-prone processes into reliable, self-running systems.</p>
         </div>
     </div>
 
@@ -634,19 +634,20 @@
 
         <div class="job">
             <div class="job-header">
-                <span class="job-title">AI &amp; Automations Builder</span>
-                <span class="job-date">Mar 2026 &mdash; Present</span>
+                <span class="job-title">Director of Warehouse &amp; Logistics (Sep 2026) &middot; Head of HR, AI &amp; Automations</span>
+                <span class="job-date">Feb 2026 &mdash; Present</span>
             </div>
             <div class="job-company">Marie Originals &middot; Multi-Channel Retail, DTC + B2B/EDI &middot; US (Remote)</div>
             <ul>
                 <li>Architected the <strong>real-time order-to-fulfillment backbone</strong> linking Zoho Inventory to ShipStation across Shopify, Amazon FBA, Walmart Marketplace and WFS, and <strong>18 EDI wholesale channels</strong>, with a multi-step Deluge push that auto-confirms orders, detects duplicates, bypasses Amazon, and writes IDs back within seconds of order creation</li>
                 <li>Built and operate a real-time Zoho Flow running <strong>700 to 800 times daily</strong> that auto-confirms and executes marketplace and web sales orders, after diagnosing and patching a race condition between two automations that had stranded orders in Draft with uncommitted inventory</li>
-                <li>Engineered a <strong>dual EasyShip integration</strong>: an event-triggered rewriter that renames every shipment to the canonical sales-order number for one-ID searchability with zero duplicates, plus a parallel failsafe that mirrors each wholesale order into EasyShip as a backup labeled shipment across 18 channels (~700 shipments per month)</li>
+                <li>Lead <strong>warehouse and logistics</strong> as Director (since Sep 2026): rolled out ShipStation Scan-to-Verify with validated barcodes for <strong>128 products</strong> (caught that 30% of the source UPC data was truncated GTIN-14 codes), traced a KeHE EDI ship-to mapping error that was routing orders to the wrong distribution center, and keep <strong>55 Zoho Flow automations</strong> at a 0.78% failure rate</li>
+                <li>Run <strong>HR for the remote team</strong> on Zoho One: hiring and AI-screened recruitment, contracts through Zoho Sign, onboarding, leave policy in Zoho People, offboarding and access control in Zoho Directory, plus a company-wide email signature system for 34 staff</li>
                 <li>Diagnosed and fixed a <strong>single root-cause bug</strong> that sent blank and "undefined" shipping states to ShipStation across every order source, with a defensive four-line Deluge change verified live</li>
                 <li>Built scheduled synchronization that imports shipped marketplace orders into Zoho, writes <strong>tracking numbers</strong> back to orders, and creates packages and shipment records for EDI fulfillment, closing a months-long gap in lost tracking data</li>
                 <li>Resolved a multi-package <strong>Walmart tracking-loss bug</strong> (a one-line overwrite in a dormant scheduled function), restoring the full tracking set for <strong>414 orders across 487 shipments</strong> with zero errors</li>
                 <li>Drove the <strong>EDI / ConnectPointz wholesale operation</strong>: deployed 12 ShipStation per-channel automation rules, enabled per-product carton auto-split, backfilled a 348-SKU catalog with weights and dimensions, and authored the canonical per-channel packing spec and item-master schema covering carton math and DSCSA lot tracking</li>
-                <li>Eliminated manual <strong>EDI invoicing</strong> with an hourly Deluge job that auto-creates draft invoices for confirmed wholesale orders, using a double-gate classifier (all-digit order number plus salesperson confirmation) to avoid touching co-mingled marketplace orders</li>
+                <li>Eliminated manual <strong>EDI invoicing</strong> with a scheduled Deluge job that auto-creates draft invoices for confirmed wholesale orders, using a double-gate classifier (all-digit order number plus salesperson confirmation) to avoid touching co-mingled marketplace orders</li>
                 <li>Built <strong>customer-facing invoice automation</strong> (auto-itemizes kit and composite components into line descriptions, salesperson notifications, a branded responsive invoice email) and a gap-safe price-list enrichment that re-applies negotiated per-unit rates and alerts on any missing price instead of shipping a wrong one</li>
                 <li>Delivered a <strong>seven-pain-point operations bundle</strong> of scheduled jobs: daily USPS SCAN-form generation and manifest transmission (80 to 130 packages per day), rolling delivery-status sync, a data-driven low-stock digest with reorder levels, an EDI open-orders report, and a same-day duplicate-shipment guard with audit alerts</li>
                 <li>Built a <strong>CRM healthcare-provider sample-vetting engine</strong> across five iterations that auto-screens every lead for duplicates and fraud, cutting the operator's daily triage queue <strong>21 percent</strong> and flagging 179 hard duplicates; separately reconciled roughly 1,000 orders against ShipStation to recover <strong>100+ stranded sample-kit orders</strong> and rebuilt the dispatch flow causing blank shipping addresses</li>
